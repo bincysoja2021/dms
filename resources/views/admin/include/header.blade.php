@@ -25,7 +25,7 @@
   </button>
   -->
   <div class="date mr-auto">
-    01-03-2024, Monday
+    <?php echo date('d-m-Y')?>,<?php echo date('l')?>
   </div>
   <div class="account-sec ml-auto">
     <a href="{{ url ('notification') }}">
@@ -33,7 +33,7 @@
     </a>
     <span class="dropdown">      
       <a class="dropdown-toggle" data-toggle="dropdown">
-        <img src="{{ asset ('images/user-image.png') }}"> <span>{{ Auth::user()->full_name }}</span>
+        <img src="{{ asset ('images/user-image.png') }}"> <span>{{ Auth::user()->user_name }}</span>
       </a>
       <div class="dropdown-menu">
         <a class="dropdown-item" href="{{ url ('/view_user')}}">User Profile</a>

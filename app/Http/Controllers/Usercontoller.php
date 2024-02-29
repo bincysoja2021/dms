@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Validator;
+use Redirect;
 
 class Usercontoller extends Controller
 {
@@ -25,9 +28,25 @@ class Usercontoller extends Controller
     {
       return view('admin.settings');
     }
-     public function edit_profile()
+     public function edit_profile($id)
     {
-      return view('admin.edit_profile');
+      $user=User::where('id',$id)->first();
+      return view('admin.edit_profile',compact('user'));
+    }
+    public function update_profile(Request $req)
+    {
+       $this->validate($req,[
+            'username'=>['required', 'max:255'],
+            'user_type'=>['required', 'string', 'max:255'],
+            'email'=>['required', 'email', 'max:255'],
+            ]);
+        User::where('id',$req->id)->update([
+          'user_name'=>$req->username,
+          'email'=>$req->email,
+          'user_type'=>$req->user_type
+        ]);
+        return redirect()->route('settings')->with('message','User updated Successfully!');
+
     }
      public function tags()
     {

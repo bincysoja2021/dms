@@ -24,6 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $session_role=session()->put('user_role', Auth::user()->user_type);
         return view('admin.dashboard');
     }
 
@@ -31,6 +32,7 @@ class HomeController extends Controller
      public function logout()
     {
         Auth::logout();
+        session()->forget('user_role');
         return redirect('/');
 
     }

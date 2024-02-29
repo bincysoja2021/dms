@@ -41,39 +41,19 @@
             <th>Action</th>
           </thead>
           <tbody>
+            @foreach($notification as $key=>$data)
             <tr>              
-              <td>01.</td>
-              <td>20-02-2024</td>
+              <td>{{$key+1}}</td>
+              <td>{{$data->date}}</td>
               <td>
-                Uploading failed for 3 documents out of 25 documents scheduled...
+                {{$data->message}}
               </td>              
               <td>
                 <a href="{{ url('/view_message') }}"><i class="fa fa-eye" aria-hidden="true"></i></a>                
                 <a href="" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash" aria-hidden="true"></i></a>
               </td>
             </tr>
-            <tr>              
-              <td>02.</td>
-              <td>28-02-2024</td>
-              <td>
-                All documents successfully uploaded...
-              </td>              
-              <td>
-                <a href="{{ url('/view_message') }}"><i class="fa fa-eye" aria-hidden="true"></i></a>                
-                <a href="" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash" aria-hidden="true"></i></a>
-              </td>
-            </tr>
-            <tr>              
-              <td>03.</td>
-              <td>05-02-2024</td>
-              <td>
-                Uploading failed for 1 documents out of 58 documents scheduled...
-              </td>              
-              <td>
-                <a href=" {{ url('/view_message') }}"><i class="fa fa-eye" aria-hidden="true"></i></a>                
-                <a href="" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash" aria-hidden="true"></i></a>
-              </td>
-            </tr>
+            @endforeach
 
           </tbody>
         </table>

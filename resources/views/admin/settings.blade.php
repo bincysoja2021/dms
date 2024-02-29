@@ -18,15 +18,15 @@
       <table class="table table-striped">
         <tr>
           <td>Username</td>
-          <td>: Skandan</td>
+          <td>: {{ucfirst(Auth::user()->user_name)}}</td>
         </tr>
         <tr>
           <td>User type</td>
-          <td>: Manager User</td>
+          <td>: {{Auth::user()->user_type}}</td>
         </tr>
         <tr>
           <td>User Email</td>
-          <td>: admin@gtntextiles.com</td>
+          <td>: {{ Auth::user()->email }}</td>
         </tr>
         <tr>
           <td>Password reset</td>
@@ -34,12 +34,26 @@
         </tr>
         <tr>
           <td>User registered on</td>
-          <td>: 05-01-2024, 10:05:27 AM</td>
+          <td>: {{ Auth::user()->created_at }}</td>
         </tr>
       </table>
-      <a href="{{ url('/edit_profile')}}" class="btn btn-info">Edit Profile</a>
+      <a href="{{ url('/edit_profile/'.Auth::user()->id)}}" class="btn btn-info">Edit Profile</a>
     </div>
   </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script type="text/javascript">
+  @if(session()->has('message'))
+      swal({
+
+          title: "Success!",
+
+          text: "{{ session()->get('message') }}",
+
+          icon: "success",
+
+      });
+  @endif
+  </script>
 
 @include("admin.include.footer")

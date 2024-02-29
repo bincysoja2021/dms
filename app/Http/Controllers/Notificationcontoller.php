@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Notification;
 
 class Notificationcontoller extends Controller
 {
@@ -13,7 +14,8 @@ class Notificationcontoller extends Controller
 
     public function notification()
     {
-        return view('admin.notification');
+        $notification=Notification::orderBy('id','desc')->get();
+        return view('admin.notification',compact('notification'));
     }
     public function view_message()
     {

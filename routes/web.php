@@ -26,7 +26,8 @@ Route::get('/view_message', [App\Http\Controllers\Notificationcontoller::class, 
 Route::get('/view_user', [App\Http\Controllers\Usercontoller::class, 'view_user'])->name('view_user');
 Route::get('/edit_user', [App\Http\Controllers\Usercontoller::class, 'edit_user'])->name('edit_user');
 Route::get('/settings', [App\Http\Controllers\Usercontoller::class, 'settings'])->name('settings');
-Route::get('/edit_profile', [App\Http\Controllers\Usercontoller::class, 'edit_profile'])->name('edit_profile');
+Route::get('/edit_profile/{id}', [App\Http\Controllers\Usercontoller::class, 'edit_profile'])->name('edit_profile');
+Route::post('/update_profile', [App\Http\Controllers\Usercontoller::class, 'update_profile'])->name('update_profile');
 Route::get('/tags', [App\Http\Controllers\Usercontoller::class, 'tags'])->name('tags');
 Route::get('/all_users', [App\Http\Controllers\Usercontoller::class, 'all_users'])->name('all_users');
 Route::get('/add_users', [App\Http\Controllers\Usercontoller::class, 'add_users'])->name('add_users');
