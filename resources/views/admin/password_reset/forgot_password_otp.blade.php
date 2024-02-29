@@ -6,7 +6,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>DMS :: GTN Textiles</title>
+<title>Forgot Password :: GTN Textiles</title>
 <link rel="icon" href="favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,30 +27,18 @@
 <div class="login-cover">
   <img src="{{ asset ('images/logo.svg') }}" class="login-logo">
   <div class="login-box">
-    <h3>DMS Login</h3>
+    <h3>DMS Login-Forgot password?</h3>
     <div class="login-in">
-        <form method="POST" action="{{ route('login') }}">
-          @csrf
-          <label>Email</label>
-          <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Enter your email" name="email" required autocomplete="off">
-          @error('email')
-            <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-            </span>
-          @enderror
-          <label>Password</label>
-          <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter your password" name="password" required autocomplete="off"> @error('password')
-            <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-            </span>
-           @enderror
-          <button type="submit" class="btn btn-primary btn-login">Login</button>
-        </form>
-          <a href="{{url('/forgot_password')}}">Forgot password?</a>
+      <p>
+        Enter 6 digit OTP recieved on your registered email address.
+      </p>      
+      <label>Enter OTP</label>
+      <input type="text" class="form-control" placeholder="Enter OTP" name="">      
+      <a href="{{ url('/reset_password') }}" class="btn btn-primary btn-login">Reset Password</a>      
     </div>
   </div>
   <h6>
-    <i class="fa fa-copyright" aria-hidden="true"></i> 2024-25 GTN Enterprises.
+    <i class="fa fa-copyright" aria-hidden="true"></i> 2024-25 GTN Enterprises.    
   </h6>
   <h6>
     GTN-DMS2024.V.0.1 by Exacore
@@ -66,8 +54,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-slim.min.js"><\/script>')</script>
-<!-- <script src="js/vendor/popper.min.js"></script>
- -->
+<script src="{{ asset ('js/vendor/popper.min.js') }}"></script>
 <script src="{{ asset ('js/bootstrap.min.js') }}"></script>
 </body>
 </html>

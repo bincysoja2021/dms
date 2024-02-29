@@ -16,13 +16,13 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="js/vendor/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<!-- <script src="js/vendor/popper.min.js"></script> -->
+<script src="{{ asset ('js/bootstrap.min.js') }}"></script>
 
-<script src="js/jquery.fancybox.min.js"></script>
+<script src="{{ asset ('js/jquery.fancybox.min.js') }}"></script>
 
 <script type="text/javascript" src="https://plugins.slyweb.ch/jquery-clock-timepicker/node_modules/jquery/dist/jquery.min.js"></script>
-  <script type="text/javascript" src="js/jquery-clock-timepicker.js"></script>
+  <script type="text/javascript" src="{{ asset ('js/jquery-clock-timepicker.js') }}"></script>
   <script type="text/javascript">
     $(document).ready(function() {
     $('.standard').clockTimePicker();

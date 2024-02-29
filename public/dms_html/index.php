@@ -7,45 +7,45 @@
 <meta name="author" content="">
 
 <title>DMS :: GTN Textiles</title>
-@include("admin.include.header")
+<?php include("include/header.php");?>
 
 <div class="main-content">
-  @include("admin.include.menu_left")
+  <?php include("include/menu-left.php");?>
   <div class="main-area">
     <h2 class="main-heading">Dashboard</h2>
-    @include("admin.include.search")
+    <?php include("include/search.php");?>
     <div class="dashbox-cover">
       <div class="dashbox-in">
         <div class="dashbox"> 
-          <img src="{{ asset ('images/document-icon.svg') }}">
+          <img src="images/document-icon.svg">
           <h4>4520</h4>
         </div>
         <h3>All Documents</h3>
       </div>
       <div class="dashbox-in">
         <div class="dashbox"> 
-          <img src="{{ asset ('images/invoice-icon.svg') }}">
+          <img src="images/invoice-icon.svg">
           <h4>2700</h4>
         </div>
         <h3>Invoices</h3>
       </div>
       <div class="dashbox-in">
         <div class="dashbox"> 
-          <img src="{{ asset ('images/sales-order-icon.svg') }}">
+          <img src="images/sales-order-icon.svg">
           <h4>700</h4>
         </div>
         <h3>Sales Orders</h3>
       </div>
       <div class="dashbox-in">
         <div class="dashbox"> 
-          <img src="{{ asset ('images/shipping-bill-icon.svg') }}">
+          <img src="images/shipping-bill-icon.svg">
           <h4>2100</h4>
         </div>
         <h3>Shipping Bills</h3>
       </div>
       <div class="dashbox-in">
         <div class="dashbox"> 
-          <img src="{{ asset ('images/notification-icon.svg') }}">
+          <img src="images/notification-icon.svg">
           <h4>40</h4>
         </div>
         <h3>Notifications</h3>
@@ -124,4 +124,4 @@
   </div>
 </div>
 
-@include("admin.include.footer");?>
+<?php include("include/footer.php");?>
