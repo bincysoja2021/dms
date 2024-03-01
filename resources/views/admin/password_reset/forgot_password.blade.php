@@ -13,12 +13,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 
 <!-- Bootstrap core CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="{{ asset ('css/bootstrap.min.css') }}" rel="stylesheet">
 
-<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="{{ asset ('font-awesome/css/font-awesome.min.css') }}">
 
 <!-- Custom styles for this template -->
-<link href="css/style.css" rel="stylesheet">
+<link href="{{ asset ('css/style.css') }}" rel="stylesheet">
 
 </head>
 
@@ -31,10 +31,23 @@
     <div class="login-in">
       <p>
         An OTP will send to your registered Email address for resetting the password. Please check your email after submitting the form.
-      </p>      
-      <label>Email</label>
-      <input type="text" class="form-control" placeholder="Enter your email" name="">
-      <a href="{{url('/forgot_password_otp')}}" class="btn btn-primary btn-login">Submit</a>      
+      </p>  
+      @if(Session::has('message'))
+          <div class="alert alert-{{session('message')['type']}}">
+              {{session('message')['text']}}
+          </div>
+      @endif
+      <form method="POST" action="{{ route('forgot_password_submit') }}">
+        @csrf    
+        @if ($errors->any())
+          @foreach ($errors->all() as $error)
+            <div class="alert alert-danger">{{$error}}</div>
+          @endforeach
+        @endif
+          <label>Email<span style="color: red;">*</span></label>
+          <input type="email" class="form-control" placeholder="Enter your email" name="email" required>
+          <button type="submit" class="btn btn-primary btn-login">Submit</button>
+      </form>        
     </div>
   </div>
   <h6>
@@ -54,7 +67,6 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="{{ asset ('js/vendor/popper.min.js') }}"></script>
 <script src="{{ asset ('js/bootstrap.min.js') }}"></script>
 </body>
 </html>

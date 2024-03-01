@@ -21,6 +21,7 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('123456'),
             'user_name'=>'Admin',
             'user_type'=>'Super admin',
+            'otp'=>random_int(100000, 999999),
             'active_status'=>1,
             'user_registerd_date'=>date("Y-m-d"),
         ]);
@@ -30,8 +31,19 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('123456'),
             'user_name'=>'Manager',
             'user_type'=>'Manager',
+            'otp'=>random_int(100000, 999999),
             'active_status'=>1,
             'user_registerd_date'=>date("Y-m-d"),
         ]);
+        User::create([
+            'full_name' => 'Bincy babu',
+            'email' => 'bincy.babu@exacoreitsolutions.com',
+            'password' => Hash::make('Bincy@1234'),
+            'user_name'=>'Bincy',
+            'user_type'=>'Admin',
+            'otp'=>random_int(100000, 999999),
+            'active_status'=>1,
+            'user_registerd_date'=>date("Y-m-d"),
+        ]); 
     }
 }

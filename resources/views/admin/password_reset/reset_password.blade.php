@@ -29,11 +29,19 @@
   <div class="login-box">
     <h3>DMS - Reset Password</h3>
     <div class="login-in">
-      <label>Enter new password</label>
-      <input type="text" class="form-control" placeholder="Enter your username" name="" autocomplete="off">
-      <label>Re-enter new assword</label>
-      <input type="password" class="form-control" placeholder="Enter your password" name="" autocomplete="off">
-      <a href="{{url('/login')}}" class="btn btn-primary btn-login">Reset</a>      
+      <form method="POST" action="{{ route('reset_password_submit') }}">
+        @csrf    
+        @if ($errors->any())
+          @foreach ($errors->all() as $error)
+            <div class="alert alert-danger">{{$error}}</div>
+          @endforeach
+        @endif
+        <label>Enter new password</label>
+        <input type="text" class="form-control" placeholder="Enter your username" name="password" autocomplete="off" required>
+        <label>Re-enter new password</label>
+        <input type="password" class="form-control" placeholder="Enter your password" name="password-confirm" autocomplete="off" required>
+        <button class="btn btn-primary btn-login">Reset</button> 
+      </form>     
     </div>
   </div>
   <h6>
@@ -53,7 +61,6 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="{{ asset ('js/vendor/popper.min.js') }}"></script>
 <script src="{{ asset ('js/bootstrap.min.js') }}"></script>
 </body>
 </html>

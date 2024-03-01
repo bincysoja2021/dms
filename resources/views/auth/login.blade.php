@@ -28,6 +28,11 @@
   <img src="{{ asset ('images/logo.svg') }}" class="login-logo">
   <div class="login-box">
     <h3>DMS Login</h3>
+    @if(Session::has('message'))
+          <div class="alert alert-{{session('message')['type']}}">
+              {{session('message')['text']}}
+          </div>
+      @endif
     <div class="login-in">
         <form method="POST" action="{{ route('login') }}">
           @csrf
@@ -66,8 +71,6 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-slim.min.js"><\/script>')</script>
-<!-- <script src="js/vendor/popper.min.js"></script>
- -->
 <script src="{{ asset ('js/bootstrap.min.js') }}"></script>
 </body>
 </html>

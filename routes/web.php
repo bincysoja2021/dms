@@ -47,12 +47,10 @@ Route::get('/edit_invoice', [App\Http\Controllers\Documentcontoller::class, 'edi
 Route::get('/schedule_document', [App\Http\Controllers\Documentcontoller::class, 'schedule_document'])->name('schedule_document');
 Route::get('/upload_document', [App\Http\Controllers\Documentcontoller::class, 'upload_document'])->name('upload_document');
 Route::get('/failed_document', [App\Http\Controllers\Documentcontoller::class, 'failed_document'])->name('failed_document');
-
-
-
 //password reset
 Route::get('/forgot_password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'forgot_password'])->name('forgot_password');
+Route::post('/forgot_password_submit', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'submit'])->name('forgot_password_submit');
 Route::get('/forgot_password_otp', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'forgot_password_otp'])->name('forgot_password_otp');
-
+Route::post('/otp_submit', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'otp_submit'])->name('otp_submit');
 Route::get('/reset_password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'reset_password'])->name('reset_password');
-
+Route::post('/reset_password_submit', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'reset_password_submit'])->name('reset_password_submit');

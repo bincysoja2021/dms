@@ -29,12 +29,26 @@
   <div class="login-box">
     <h3>DMS Login-Forgot password?</h3>
     <div class="login-in">
+      @if(Session::has('message'))
+        <div class="alert alert-{{session('message')['type']}}">
+            {{session('message')['text']}}
+        </div>
+      @endif
       <p>
         Enter 6 digit OTP recieved on your registered email address.
-      </p>      
-      <label>Enter OTP</label>
-      <input type="text" class="form-control" placeholder="Enter OTP" name="">      
-      <a href="{{ url('/reset_password') }}" class="btn btn-primary btn-login">Reset Password</a>      
+      </p> 
+      <form method="POST" action="{{ route('otp_submit') }}">
+        <input type="hidden" name="user_id" value="">
+        @csrf    
+        @if ($errors->any())
+          @foreach ($errors->all() as $error)
+            <div class="alert alert-danger">{{$error}}</div>
+          @endforeach
+        @endif     
+        <label>Enter OTP <span style="color: red;">*</span></label>
+        <input type="text" class="form-control" placeholder="Enter OTP" name="otp" required>      
+        <button type="submit" class="btn btn-primary btn-login">Reset Password</button>  
+      </form>    
     </div>
   </div>
   <h6>
@@ -54,7 +68,6 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="{{ asset ('js/vendor/popper.min.js') }}"></script>
 <script src="{{ asset ('js/bootstrap.min.js') }}"></script>
 </body>
 </html>

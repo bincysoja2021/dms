@@ -4,6 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Http\Request;
+use App\Models\User;
+use Validator;
+use Redirect;
+use Session;
+use Hash;
 
 class ForgotPasswordController extends Controller
 {
@@ -20,9 +27,24 @@ class ForgotPasswordController extends Controller
 
     use SendsPasswordResetEmails;
 
-    public function reset_password()
+    public function otp_submit(Request $request)
     {
-      return view('admin.password_reset.reset_password');
+      $this->validate($request,
+      [
+          'otp'=>['required', 'integer','min:6'],
+      ]);
+      $id = Cookie::get('user_id');
+      $check_exist=User::where('id',$id)->exists();
+      $exist_otp=User::where('otp',$request->otp)->exists();
+      if($check_exist==true && $exist_otp)
+      {
+        return redirect('/reset_password');
+      }
+      else
+      {
+        Session::flash('message', ['text'=>'OTP has invalid.!','type'=>'danger']);
+        return redirect('/forgot_password_otp');
+      }
     }
 
     public function forgot_password()
@@ -32,5 +54,61 @@ class ForgotPasswordController extends Controller
     public function forgot_password_otp()
     {
       return view('admin.password_reset.forgot_password_otp');
+    }
+    public function reset_password()
+    {
+      return view('admin.password_reset.reset_password');
+    }
+    public function reset_password_submit(Request $req)
+    {
+      $this->validate($req,
+      [
+          'password'=>['required', 'min:6','regex:/[a-z]/','regex:/[A-Z]/','regex:/[0-9]/','regex:/[@$!%*#?&]/'],
+          'password-confirm'=>['required_with:password','same:password','min:6'],
+      ]);
+      $id = Cookie::get('user_id');
+      User::where('id',$id)->update(['password'=>Hash::make($req->password)]);
+      Cookie::queue(Cookie::forget('user_id'));
+      Session::flash('message', ['text'=>'Succssfully updated the password!....','type'=>'success']);
+      return redirect('/');
+    }  
+    public function submit(Request $req)
+    {
+      $this->validate($req,
+      [
+          'email'=>['required', 'email', 'max:255'],
+      ]);
+      $check_exist=User::where('email',$req->email)->exists();
+      if($check_exist==true)
+      {
+          $otp=random_int(100000, 999999);
+          User::where('email',$req->email)->update(['otp'=>$otp]);
+          $user_details=User::where('email',$req->email)->first();
+          $details = [
+            'type' => 'Otp',
+            'customer_details' => $user_details,
+            'subject' => "You are received an otp !",
+          ];
+          $response=send_otp_to_email($req->email,$details,$blade="admin.email.send_otp",$subject="OTP Detail",$user_details->user_name);
+          $responseData = json_decode($response);
+          if($responseData->status=="0" && $responseData->msg=="Success")
+          {
+            $id=$user_details->id;
+            $cookie = Cookie::queue(Cookie::make('user_id', $id, 20));
+            Session::flash('message', ['text'=>'An OTP send it to the email.!','type'=>'success']);
+            return redirect('forgot_password_otp');
+          }
+          else
+          {
+            Session::flash('message', ['text'=>'Not send an email.!','type'=>'danger']);
+             return view('admin.password_reset.forgot_password');
+          }
+      }
+      else
+      {
+          Session::flash('message', ['text'=>'Email does not exist.!','type'=>'danger']);
+          return view('admin.password_reset.forgot_password');
+      }
+      
     }
 }
