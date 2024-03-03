@@ -34,12 +34,16 @@ class Usercontoller extends Controller
       return view('admin.edit_profile',compact('user'));
     }
     public function update_profile(Request $req)
-    {
-       $this->validate($req,[
-            'username'=>['required', 'max:255'],
-            'user_type'=>['required', 'string', 'max:255'],
-            'email'=>['required', 'email', 'max:255'],
-            ]);
+    { 
+        $validatedData = $req->validate([
+          'username' => 'required|alpha|max:255',
+          'user_type' => 'required|string',
+          'email' => 'required|email|email:rfc,dns|max:255'
+      ], [
+          'username.required' => 'Please enter the user name.',
+          'user_type.required' => 'Please enter the user type.',
+          'email.required' => 'Please enter the email.',
+      ]);
         User::where('id',$req->id)->update([
           'user_name'=>$req->username,
           'email'=>$req->email,

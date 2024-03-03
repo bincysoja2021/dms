@@ -18,10 +18,10 @@
         <div class="sort-block">
           <div class="show-num">
             <span>Show</span>
-            <select class="select">
-              <option>20</option>
-              <option>50</option>
-              <option>100</option>
+            <select class="select" id="filter_notification" >
+              <option value="twenty" href="url('/notification_filter') }}"><a href="{{ url ('/notification_filter') }}">20</a></option>
+              <option value="fifty" href="url('/notification_filter') }}"><a href="{{ url ('/notification_filter') }}">50</a></option>
+              <option value="hundred" href="url('/notification_filter') }}"><a href="{{ url ('/notification_filter') }}">100</a></option>
             </select>
             <span>Entries</span>
           </div>           
@@ -59,11 +59,7 @@
         </table>
         <div class="pagination-block">
           <ul class="pagination pagination-sm justify-content-end">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            <li class="page-item">{!! $notification->links('pagination::bootstrap-4') !!} value=""</li>
           </ul>
         </div>
       </div>

@@ -76,7 +76,7 @@ class ForgotPasswordController extends Controller
     {
       $this->validate($req,
       [
-          'email'=>['required', 'email', 'max:255'],
+          'email'=>['required', 'email', 'max:255','email:rfc,dns'],
       ]);
       $check_exist=User::where('email',$req->email)->exists();
       if($check_exist==true)

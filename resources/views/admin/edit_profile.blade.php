@@ -28,7 +28,7 @@
         <table class="table table-striped">
           <tr>
             <td>Username*<span class="text-danger"></span></td>
-            <td><input type="text" class="form-control" name="username" value="{{$user->user_name}}"></td>
+            <td><input type="text" class="form-control" name="username" value="{{$user->user_name}}" required></td>
           </tr>
           <tr>
             <td>User type<span class="text-danger">*</span></td>
@@ -42,7 +42,7 @@
           </tr>
           <tr>
             <td>User Email<span class="text-danger">*</td>
-            <td> <input type="email" class="form-control" name="email" value="{{$user->email}}"></td>
+            <td> <input type="email" class="form-control" name="email" value="{{$user->email}}" required></td>
           </tr>
           <tr>
             <td>Password reset</td>

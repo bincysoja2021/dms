@@ -54,3 +54,10 @@ Route::get('/forgot_password_otp', [App\Http\Controllers\Auth\ForgotPasswordCont
 Route::post('/otp_submit', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'otp_submit'])->name('otp_submit');
 Route::get('/reset_password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'reset_password'])->name('reset_password');
 Route::post('/reset_password_submit', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'reset_password_submit'])->name('reset_password_submit');
+
+
+
+//testable
+Route::get('notification/list', [App\Http\Controllers\Notificationcontoller::class, 'getnotification'])->name('notification.list');
+Route::get('notification_filter', [App\Http\Controllers\Notificationcontoller::class, 'notification_filter'])->name('notification_filter');
+
