@@ -12,16 +12,17 @@
 <div class="main-content">
 @include("admin.include.menu_left")
   <div class="main-area">
-    <h2 class="main-heading">Notifications</h2>    
+    <h2 class="main-heading">Notifications</h2>   
+    <?php  $url = $_SERVER['HTTP_HOST'] ; ?> 
     <div class="dash-all pt-0">
       <div class="dash-table-all">        
         <div class="sort-block">
           <div class="show-num">
             <span>Show</span>
-            <select class="select" id="filter_notification" >
-              <option value="twenty" href="url('/notification_filter') }}"><a href="{{ url ('/notification_filter') }}">20</a></option>
-              <option value="fifty" href="url('/notification_filter') }}"><a href="{{ url ('/notification_filter') }}">50</a></option>
-              <option value="hundred" href="url('/notification_filter') }}"><a href="{{ url ('/notification_filter') }}">100</a></option>
+            <select class="select" id="filter_notification" onchange="location.href='notification_filter?search='+this.value">
+              <option value="20" >20</option>
+              <option value="50" >50</option>
+              <option value="100" >100</option>
             </select>
             <span>Entries</span>
           </div>           

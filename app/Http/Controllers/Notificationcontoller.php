@@ -18,10 +18,10 @@ class Notificationcontoller extends Controller
         $notification=Notification::paginate(10);
         return view('admin.notification',compact('notification'));
     }
-    public function notification_filter()
+    public function notification_filter($search)
     {
-        dd("filter");
-        $notification=Notification::paginate(10);
+        dd($search);
+        $notification=Notification::paginate(1);
         return view('admin.notification',compact('notification'));
     }
     public function view_message()

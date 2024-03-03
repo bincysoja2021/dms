@@ -59,5 +59,5 @@ Route::post('/reset_password_submit', [App\Http\Controllers\Auth\ForgotPasswordC
 
 //testable
 Route::get('notification/list', [App\Http\Controllers\Notificationcontoller::class, 'getnotification'])->name('notification.list');
-Route::get('notification_filter', [App\Http\Controllers\Notificationcontoller::class, 'notification_filter'])->name('notification_filter');
+Route::get('notification_filter/{search}', [App\Http\Controllers\Notificationcontoller::class, 'notification_filter'])->name('notification_filter');
 
