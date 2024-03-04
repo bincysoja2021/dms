@@ -61,4 +61,4 @@ Route::post('/add_user_submit', [App\Http\Controllers\Usercontoller::class, 'sub
 Route::get('notification/list', [App\Http\Controllers\Notificationcontoller::class, 'getnotification'])->name('notification.list');
 Route::get('/notification', [App\Http\Controllers\Notificationcontoller::class, 'notification'])->name('notification');
 Route::get('/view_notification/{id}', [App\Http\Controllers\Notificationcontoller::class, 'view_message'])->name('view.notification');
-Route::delete('/delete_notification/{id}', [App\Http\Controllers\Notificationcontoller::class, 'delete_message'])->name('delete.notification');
+Route::post('/delete_notification/{id}', [App\Http\Controllers\Notificationcontoller::class, 'delete_message'])->name('delete.notification');
