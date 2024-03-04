@@ -14,43 +14,51 @@
   <div class="main-area">
     <h2 class="main-heading">Add User</h2>  
     <div class="dash-all pt-0">
-      <div class="dash-table-all" style="max-width:700px;">        
+      <div class="dash-table-all" style="max-width:700px;">  
+       <form method="POST" action="{{ url('add_user_submit') }}">
+        @csrf   
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+              <div class="alert alert-danger">{{$error}}</div>
+            @endforeach
+          @endif   
         <table class="table table-striped">        
         <tr>
           <td>User Full Name</td>
           <td width="10">:</td>
           <td>
-            <input type="text" class="form-control" name="" value="">
+            <input type="text" class="form-control" name="full_name" value="" required autocomplete="off">
           </td>
         </tr>
         <tr>
           <td>User Email ID</td>
           <td width="10">:</td>
           <td>
-            <input type="text" class="form-control" name="" value="">
+            <input type="email" class="form-control" name="email" value="" required autocomplete="off">
           </td>
         </tr>
         <tr>
           <td>Employee ID</td>
           <td width="10">:</td>
           <td>
-            <input type="text" class="form-control" name="" value="">
+            <input type="text" class="form-control" name="employee_id" value="" required autocomplete="off">
           </td>
         </tr>
         <tr>
           <td>Username</td>
           <td width="10">:</td>
           <td>
-            <input type="text" class="form-control" name="" value="">
+            <input type="text" class="form-control" name="user_name" value="" required autocomplete="off">
           </td>
         </tr>
         <tr>
           <td>User Type</td>
           <td width="10">:</td>
           <td>
-            <select class="form-control">
-              <option>Manager</option>
-              <option>Super Admin</option>
+            <select class="form-control" name="user_type">
+              <option>Select</option>
+              <option value="Manager">Manager</option>
+              <option value="Super Admin">Super Admin</option>
             </select> 
           </td>
         </tr>
@@ -58,9 +66,9 @@
           <td>Office</td>
           <td width="10">:</td>
           <td>
-            <select class="form-control">
+            <select class="form-control" name="office">
               <option>Select</option>
-              <option>GTN Textiles</option>              
+              <option value="GTN Textiles">GTN Textiles</option>              
             </select>
           </td>
         </tr>
@@ -68,15 +76,16 @@
           <td>Department/Section</td>
           <td width="10">:</td>
           <td>
-            <select class="form-control">
+            <select class="form-control" name="department_section">
               <option>Select</option>
-              <option>Sales</option>
-              <option>Finance</option>
+              <option value="Sales">Sales</option>
+              <option value="Finance">Finance</option>
             </select>
           </td>
         </tr>
       </table>
-      <a href="{{url('/all_users')}}" class="btn btn-primary">Add User</a>
+      <button class="btn btn-primary">Add User</button>
+    </form>
       </div>
     </div>
   </div>

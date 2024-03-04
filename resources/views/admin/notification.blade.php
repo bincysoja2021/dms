@@ -5,7 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+<!-- styles and scripts -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
+<script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
 <title>Notifications :: DMS</title>
 @include("admin.include.header")
 
@@ -16,7 +26,7 @@
     <?php  $url = $_SERVER['HTTP_HOST'] ; ?> 
     <div class="dash-all pt-0">
       <div class="dash-table-all">        
-        <div class="sort-block">
+        <!-- <div class="sort-block">
           <div class="show-num">
             <span>Show</span>
             <select class="select" id="filter_notification" onchange="location.href='notification_filter?search='+this.value">
@@ -33,43 +43,32 @@
               <option>Sort by oldest</option>
             </select>
           </div>
-        </div>
-        <table class="table table-striped">
-          <thead>            
+        </div> -->
+        <table class="table table-striped yajra-datatable">
+          <thead>
+          <tr>            
             <th>Sl.</th>
             <th>Date</th>
             <th>Message</th>
             <th>Action</th>
+          </tr>
           </thead>
           <tbody>
-            @foreach($notification as $key=>$data)
-            <tr>              
-              <td>{{$key+1}}</td>
-              <td>{{$data->date}}</td>
-              <td>
-                {{$data->message}}
-              </td>              
-              <td>
-                <a href="{{ url('/view_message') }}"><i class="fa fa-eye" aria-hidden="true"></i></a>                
-                <a href="" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash" aria-hidden="true"></i></a>
-              </td>
-            </tr>
-            @endforeach
 
           </tbody>
         </table>
-        <div class="pagination-block">
+        <!-- <div class="pagination-block">
           <ul class="pagination pagination-sm justify-content-end">
-            <li class="page-item">{!! $notification->links('pagination::bootstrap-4') !!} value=""</li>
+            <li class="page-item">{!! $notification->links('pagination::bootstrap-4') !!}</li>
           </ul>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
 </div>
 
 <!-- The Modal -->
-<div class="modal fade" id="myModal">
+<div class="modal fade" id="notificationModal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
     
@@ -93,5 +92,21 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  $(function () {
+    var table = $('.yajra-datatable').DataTable
+    ({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('notification.list') }}",
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'date', name: 'date'},
+            {data: 'message', name: 'message'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+        ]
+    });
+  });
 
+</script>
 @include("admin.include.footer")

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Notification;
-use Datatables;
+use Yajra\DataTables\DataTables;
 
 class Notificationcontoller extends Controller
 {
@@ -18,15 +18,15 @@ class Notificationcontoller extends Controller
         $notification=Notification::paginate(10);
         return view('admin.notification',compact('notification'));
     }
-    public function notification_filter($search)
+    public function view_message($id)
     {
-        dd($search);
-        $notification=Notification::paginate(1);
-        return view('admin.notification',compact('notification'));
+        $msg=Notification::where('id',$id)->first();
+        return view('admin.view_message',compact('msg'));
     }
-    public function view_message()
+    public function delete_message($id)
     {
-        return view('admin.view_message');
+        $msg=Notification::where('id',$id)->delete();
+        return redirect()->route('notification');
     }
     public function getnotification(Request $request)
     {
@@ -35,7 +35,7 @@ class Notificationcontoller extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+                    $actionBtn = '<a href="' . route('view.notification', $row->id) .'"><i class="fa fa-eye"  aria-hidden="true"></i></a> <a href="' . route('delete.notification', $row->id) .'" data-toggle="modal" data-target="#notificationModal"><i class="fa fa-trash" aria-hidden="true"></i></a>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])

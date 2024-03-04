@@ -19,17 +19,17 @@
           <tr>
             <td width="200">Message Title</td>
             <td width="10">:</td>
-            <td>Uploading failed for 3 documents</td>
+            <td>{{$msg->message_title}}</td>
           </tr>
           <tr>
             <td>Date and Time</td>
             <td>:</td>
-            <td>20-02-2024</td>
+            <td>{{ \Carbon\Carbon::parse($msg->date)->format('d-m-Y') }}</td>
           </tr>
           <tr>
             <td>Status</td>
             <td>:</td>
-            <td><span class="text-danger">Failed</span></td>
+            <td><span class="text-danger">{{$msg->status}}</span></td>
           </tr>
           <tr>
             <td>Message</td>

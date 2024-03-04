@@ -66,6 +66,13 @@ class ForgotPasswordController extends Controller
           'password'=>['required', 'min:6','regex:/[a-z]/','regex:/[A-Z]/','regex:/[0-9]/','regex:/[@$!%*#?&]/'],
           'password-confirm'=>['required_with:password','same:password','min:6'],
       ]);
+      // $validatedData = $req->validate([
+      //     'password' => 'required|min:6|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/',
+      //     'password-confirm' => 'required_with:password|same:password|min:6'
+      // ], [
+      //     'password.required' => 'Please enter the atleast one Capital letter,small letter,numbers and special letters.',
+      //     'password-confirm.required' => 'Please enter the same password.',
+      // ]);
       $id = Cookie::get('user_id');
       User::where('id',$id)->update(['password'=>Hash::make($req->password)]);
       Cookie::queue(Cookie::forget('user_id'));

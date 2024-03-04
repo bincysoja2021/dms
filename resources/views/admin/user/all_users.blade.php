@@ -14,7 +14,12 @@
   <div class="main-area">
     <h2 class="main-heading">All Users</h2>  
     <div class="dash-all pt-0">
-      <div class="dash-table-all">        
+      <div class="dash-table-all">  
+      @if(Session::has('message'))
+          <div class="alert alert-{{session('message')['type']}}">
+              {{session('message')['text']}}
+          </div>
+      @endif      
         <div class="sort-block">
           <div class="show-num">
             <span>Show</span>

@@ -72,5 +72,39 @@ class Usercontoller extends Controller
     {
       return view('admin.user.edit_user');
     }
+    public function submit(Request $req)
+    {
+      $validatedData = $req->validate([
+          'full_name' => 'required|alpha|max:255',
+          'employee_id' => 'required|integer',
+          'email' => 'required|email|email:rfc,dns|max:255',
+          'user_name' => 'required|alpha|max:255',
+          'office' => 'required',
+          'user_type' => 'required',
+          'department_section' => 'required|alpha',
+
+      ], [
+          'full_name.required' => 'Please enter the name.',
+          'employee_id.required' => 'Please enter the Id.',
+          'email.required' => 'Please enter the email.',
+          'user_name.required' => 'Please enter the user name.',
+          'office.required' => 'Please enter the office.',
+          'user_type.required' => 'Please enter the type.',
+          'department_section.required' => 'Please enter the department.',
+      ]);
+        User::create([
+          'full_name'=>$req->full_name,
+          'email'=>$req->email,
+          'employee_id'=>$req->employee_id,
+          'user_name'=>$req->user_name,
+          'user_type'=>$req->user_type,
+          'office'=>$req->office,
+          'department_section'=>$req->department_section,
+          'active_status'=>"Active",
+          'user_registerd_date'=>date('d-m-Y')
+
+        ]);
+        return redirect()->route('all_users')->with('message','User Added Successfully!');
+    }
 
 }

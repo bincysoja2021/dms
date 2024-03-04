@@ -38,7 +38,7 @@ class UsersTableSeeder extends Seeder
         User::create([
             'full_name' => 'Bincy babu',
             'email' => 'bincy.babu@exacoreitsolutions.com',
-            'password' => Hash::make('Bincy@1234'),
+            'password' => Hash::make('123456'),
             'user_name'=>'Bincy',
             'user_type'=>'Admin',
             'otp'=>random_int(100000, 999999),
