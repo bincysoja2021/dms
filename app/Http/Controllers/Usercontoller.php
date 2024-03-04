@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Validator;
 use Redirect;
+use Hash;
 
 class Usercontoller extends Controller
 {
@@ -77,7 +78,7 @@ class Usercontoller extends Controller
       $validatedData = $req->validate([
           'full_name' => 'required|alpha|max:255',
           'employee_id' => 'required|integer',
-          'email' => 'required|email|email:rfc,dns|max:255',
+          'email' => 'required|email|email:rfc,dns|max:255|unique:users',
           'user_name' => 'required|alpha|max:255',
           'office' => 'required',
           'user_type' => 'required',
@@ -100,8 +101,9 @@ class Usercontoller extends Controller
           'user_type'=>$req->user_type,
           'office'=>$req->office,
           'department_section'=>$req->department_section,
-          'active_status'=>"Active",
-          'user_registerd_date'=>date('d-m-Y')
+          'active_status'=>1,
+          'user_registerd_date'=>date("Y-m-d"),
+          'password'=>Hash::make(123456),
 
         ]);
         return redirect()->route('all_users')->with('message','User Added Successfully!');

@@ -1,3 +1,17 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script type="text/javascript">
+  @if(session()->has('message'))
+      swal({
+
+          title: "Success!",
+
+          text: "{{ session()->get('message') }}",
+
+          icon: "success",
+
+      });
+  @endif
+  </script>
 <!doctype html>
 <html lang="en">
 <head>
@@ -14,12 +28,7 @@
   <div class="main-area">
     <h2 class="main-heading">All Users</h2>  
     <div class="dash-all pt-0">
-      <div class="dash-table-all">  
-      @if(Session::has('message'))
-          <div class="alert alert-{{session('message')['type']}}">
-              {{session('message')['text']}}
-          </div>
-      @endif      
+      <div class="dash-table-all"> 
         <div class="sort-block">
           <div class="show-num">
             <span>Show</span>
@@ -134,5 +143,19 @@
     </div>
   </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script type="text/javascript">
+  @if(session()->has('message'))
+      swal({
+
+          title: "Success!",
+
+          text: "{{ session()->get('message') }}",
+
+          icon: "success",
+
+      });
+  @endif
+  </script>
 
 @include("admin.include.footer")
