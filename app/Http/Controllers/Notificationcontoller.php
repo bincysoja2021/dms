@@ -12,23 +12,37 @@ class Notificationcontoller extends Controller
     {
         $this->middleware('auth');
     }
-
-    public function notification()
-    {
-        $notification=Notification::paginate(10);
-        return view('admin.notification',compact('notification'));
-    }
+/**********************************
+   Date        : 04/03/2024
+   Description :  view notification
+**********************************/
     public function view_message($id)
     {
         $msg=Notification::where('id',$id)->first();
         return view('admin.view_message',compact('msg'));
     }
+/**********************************
+   Date        : 04/03/2024
+   Description :  load notification
+**********************************/
+    public function notification()
+    {
+        return view('admin.notification');
+    }    
+/***************************************
+   Date        : 04/03/2024
+   Description :  delete notification
+***************************************/    
     public function delete_message($id)
     {
         $msg=Notification::where('id',$id)->delete();
         return redirect()->route('notification');
     }
-    public function getnotification(Request $request)
+/*****************************************
+   Date        : 04/03/2024
+   Description :  Listing notification
+*****************************************/    
+    public function list(Request $request)
     {
         if ($request->ajax()) {
             $data = Notification::latest()->get();

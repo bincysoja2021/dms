@@ -19,11 +19,9 @@
 
 <!-- Custom styles for this template -->
 <link href="{{ asset ('css/style.css') }}" rel="stylesheet">
-
 </head>
 
 <body>
-
 <div class="login-cover">
   <img src="{{ asset ('images/logo.svg') }}" class="login-logo">
   <div class="login-box">
@@ -45,7 +43,7 @@
           @endforeach
         @endif
           <label>Email<span style="color: red;">*</span></label>
-          <input type="email" class="form-control" placeholder="Enter your email" name="email" required>
+          <input type="email" class="form-control" placeholder="Enter your email" name="email" required autocomplete="off">
           <button type="submit" class="btn btn-primary btn-login">Submit</button>
       </form>        
     </div>

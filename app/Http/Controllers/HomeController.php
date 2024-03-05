@@ -27,8 +27,10 @@ class HomeController extends Controller
         $session_role=session()->put('user_role', Auth::user()->user_type);
         return view('admin.dashboard');
     }
-
-    //authentication logout
+/******************************
+   Date        : 27/02/2024
+   Description :  logout
+******************************/
      public function logout()
     {
         Auth::logout();

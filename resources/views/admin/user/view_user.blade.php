@@ -19,56 +19,56 @@
           <td>Username</td>
           <td width="10">:</td>
           <td>
-            <input type="text" class="form-control" name="" value="scandan" disabled>
+            <input type="text" class="form-control" name="" value="{{$data->full_name}}" disabled>
           </td>
         </tr>
         <tr>
           <td>User email</td>
           <td width="10">:</td>
           <td>
-            <input type="text" class="form-control" name="" value="scandan@gtntextiles.com" disabled>
+            <input type="text" class="form-control" name="" value="{{$data->email}}" disabled>
           </td>
         </tr>
         <tr>
           <td>User Full name</td>
           <td width="10">:</td>
           <td>
-            <input type="text" class="form-control" name="" value="Scandan Full name" disabled>
+            <input type="text" class="form-control" name="" value="{{$data->full_name}}" disabled>
           </td>
         </tr>
         <tr>
           <td>Employee ID</td>
           <td width="10">:</td>
           <td>
-            <input type="text" class="form-control" name="" value="GTN152890" disabled>
+            <input type="text" class="form-control" name="" value="{{$data->employee_id}}" disabled>
           </td>
         </tr>
         <tr>
           <td>User type</td>
           <td width="10">:</td>
           <td>
-            <input type="text" class="form-control" name="" value="Manager" disabled>
+            <input type="text" class="form-control" name="" value="{{$data->user_type}}" disabled>
           </td>
         </tr>
         <tr>
           <td>User created on</td>
           <td width="10">:</td>
           <td>
-            <input type="text" class="form-control" name="" value="05-08-2023" disabled>
+            <input type="text" class="form-control" name="" value="{{ \Carbon\Carbon::parse($data->user_registerd_date)->format('j-m-Y') }}" disabled>
           </td>
         </tr>
         <tr>
           <td>User active status</td>
           <td width="10">:</td>
           <td>
-            <input type="text" class="form-control" name="" value="Active" disabled>
+            <input type="text" class="form-control" name="" value="@if($data->active_status == 1)Active @else In-active @endif" disabled>
           </td>
         </tr>
         <tr>
           <td>User last login</td>
           <td width="10">:</td>
           <td>
-            <input type="text" class="form-control" name="" value="01-02-2024, 02:19:45 PM" disabled>
+            <input type="text" class="form-control" name="" value="{{$data->last_login_time}}" disabled>
           </td>
         </tr>        
         <tr>
@@ -76,7 +76,7 @@
           <td width="10">:</td>
           <td>
             <select class="form-control" disabled>              
-              <option>GTN Textiles</option>              
+              <option>{{$data->office}}</option>              
             </select>
           </td>
         </tr>
@@ -85,14 +85,13 @@
           <td width="10">:</td>
           <td>
             <select class="form-control" disabled>              
-              <option>Sales</option>
-              <option>Finance</option>
+              <option>{{$data->department_section}}</option>
             </select>
           </td>
         </tr>
       </table>
       <div class="btn-groups">
-        <a href="{{url('/edit_users')}}" class="btn btn-info">Edit</a>        
+        <a href="{{url('/edit_users/'.$data->id)}}" class="btn btn-info">Edit</a>        
       </div>
     </div>
   </div>

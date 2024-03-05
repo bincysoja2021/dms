@@ -25,26 +25,8 @@
     <h2 class="main-heading">Notifications</h2>   
     <?php  $url = $_SERVER['HTTP_HOST'] ; ?> 
     <div class="dash-all pt-0">
-      <div class="dash-table-all">        
-        <!-- <div class="sort-block">
-          <div class="show-num">
-            <span>Show</span>
-            <select class="select" id="filter_notification" onchange="location.href='notification_filter?search='+this.value">
-              <option value="20" >20</option>
-              <option value="50" >50</option>
-              <option value="100" >100</option>
-            </select>
-            <span>Entries</span>
-          </div>           
-          <div class="sort-by ml-auto">
-            <select class="select">
-              <option>Select</option>
-              <option>Sort by latest</option>
-              <option>Sort by oldest</option>
-            </select>
-          </div>
-        </div> -->
-        <table class="table table-striped yajra-datatable">
+      <div class="dash-table-all"> 
+        <table class="table table-striped notification-datatable">
           <thead>
           <tr>            
             <th>Sl.</th>
@@ -59,7 +41,7 @@
         </table>
         <!-- <div class="pagination-block">
           <ul class="pagination pagination-sm justify-content-end">
-            <li class="page-item">{!! $notification->links('pagination::bootstrap-4') !!}</li>
+            <li class="page-item"></li>
           </ul>
         </div> -->
       </div>
@@ -94,7 +76,7 @@
 </div>
 <script type="text/javascript">
   $(function () {
-    var table = $('.yajra-datatable').DataTable
+    var table = $('.notification-datatable').DataTable
     ({
         processing: true,
         serverSide: true,

@@ -26,7 +26,10 @@ class ForgotPasswordController extends Controller
     */
 
     use SendsPasswordResetEmails;
-
+/**********************************
+   Date        : 01/03/2024
+   Description :  OTP Submit
+**********************************/
     public function otp_submit(Request $request)
     {
       $this->validate($request,
@@ -46,19 +49,34 @@ class ForgotPasswordController extends Controller
         return redirect('/forgot_password_otp');
       }
     }
-
+/**********************************
+   Date        : 01/03/2024
+   Description :  forgot password
+**********************************/
     public function forgot_password()
     {
       return view('admin.password_reset.forgot_password');
     }
+/*****************************************
+   Date        : 01/03/2024
+   Description :  otp send to the email
+*****************************************/    
     public function forgot_password_otp()
     {
       return view('admin.password_reset.forgot_password_otp');
     }
+/**************************************
+   Date        : 01/03/2024
+   Description :  Reset for password
+**************************************/    
     public function reset_password()
     {
       return view('admin.password_reset.reset_password');
     }
+/*******************************************
+   Date        : 01/03/2024
+   Description : Password rest submission
+*******************************************/    
     public function reset_password_submit(Request $req)
     {
       $this->validate($req,
@@ -78,7 +96,11 @@ class ForgotPasswordController extends Controller
       Cookie::queue(Cookie::forget('user_id'));
       Session::flash('message', ['text'=>'Succssfully updated the password!....','type'=>'success']);
       return redirect('/');
-    }  
+    } 
+/**********************************
+   Date        : 01/03/2024
+   Description :  Forgot password
+**********************************/     
     public function submit(Request $req)
     {
       $this->validate($req,

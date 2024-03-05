@@ -1,17 +1,3 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
-<script type="text/javascript">
-  @if(session()->has('message'))
-      swal({
-
-          title: "Success!",
-
-          text: "{{ session()->get('message') }}",
-
-          icon: "success",
-
-      });
-  @endif
-  </script>
 <!doctype html>
 <html lang="en">
 <head>
@@ -19,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+<!-- styles and scripts -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
 
 <title>All Users :: DMS</title>
 @include("admin.include.header")
@@ -28,98 +24,31 @@
   <div class="main-area">
     <h2 class="main-heading">All Users</h2>  
     <div class="dash-all pt-0">
-      <div class="dash-table-all"> 
-        <div class="sort-block">
-          <div class="show-num">
-            <span>Show</span>
-            <select class="select">
-              <option>20</option>
-              <option>50</option>
-              <option>100</option>
-            </select>
-            <span>Entries</span>
-          </div> 
-          <a href="" class="btn btn-primary">Delete</a>
-          <div class="sort-by ml-auto">
-            <select class="select">
-              <option>Select</option>
-              <option>Sort by latest</option>
-              <option>Sort by oldest</option>
-            </select>
-          </div>
-        </div>
-        <table class="table table-striped">
+      <div class="dash-table-all">
+        <table class="table table-striped user-datatable">
           <thead>
-            <th><input type="checkbox" class="checkbox"></th>
-            <th>Sl.</th>
-            <th>Username</th>
-            <th>Email ID</th>
-            <th>User Type</th>            
-            <th>Last Login</th>
-            <th>Active Status</th>
-            <th>Action</th>
+            <tr>
+              <th>Sl.</th>
+              <th>Username</th>
+              <th>Email ID</th>
+              <th>User Type</th>            
+              <th>Last Login</th>
+              <th>Active Status</th>
+              <th>Action</th>
+            </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><input type="checkbox" class="checkbox"></td>
-              <td>01.</td>
-              <td>scandan</td>
-              <td>scandan@gtntextiles.com</td>
-              <td>Manager</td>              
-              <td>01-02-2024, 02:19:45 PM</td>
-              <td class="text-success">Active</td>
-              <td>
-                <a href="{{url('/view_users')}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                <a href="{{url('/edit_users')}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                <a href="" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash" aria-hidden="true"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="checkbox"></td>
-              <td>02.</td>
-              <td>josemathew</td>
-              <td>josemathew@gtntextiles.com</td>
-              <td>Super Admin</td>              
-              <td>10-02-2024, 11:50:05 PM</td>
-              <td class="text-success">Active</td>
-              <td>
-                <a href="{{url('/view_users')}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                <a href="{{url('/edit_users')}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                <a href="" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash" aria-hidden="true"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="checkbox"></td>
-              <td>03.</td>
-              <td>binoy</td>
-              <td>binoy@gtntextiles.com</td>
-              <td>Manager</td>
-              <td>01-02-2024, 04:23:28 PM</td>
-              <td class="text-danger">In-active</td>
-              <td>
-                <a href="{{url('/view_users')}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                <a href="{{url('/edit_users')}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                <a href="" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash" aria-hidden="true"></i></a>
-              </td>
-            </tr>
+           
           </tbody>
         </table>
-        <div class="pagination-block">
-          <ul class="pagination pagination-sm justify-content-end">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-          </ul>
-        </div>
+       
       </div>
     </div>
   </div>
 </div>
 
 <!-- The Modal -->
-<div class="modal fade" id="myModal">
+<div class="modal fade" id="userModal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
     
@@ -157,5 +86,24 @@
       });
   @endif
   </script>
+<script type="text/javascript">
+  $(function () {
+    var table = $('.user-datatable').DataTable
+    ({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('users.list') }}",
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'full_name', name: 'full_name'},
+            {data: 'email', name: 'email'},
+            {data: 'user_type', name: 'user_type'},
+            {data: 'last_login_time', name: 'last_login_time'},
+            {data: 'active_status', name: 'active_status'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+        ]
+    });
+  });
 
+</script>
 @include("admin.include.footer")

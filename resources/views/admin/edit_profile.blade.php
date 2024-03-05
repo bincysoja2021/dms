@@ -27,7 +27,7 @@
         <input type="hidden" name="id" value="{{$user->id}}"}>
         <table class="table table-striped">
           <tr>
-            <td>Username*<span class="text-danger"></span></td>
+            <td>Username<span class="text-danger">*</span></td>
             <td><input type="text" class="form-control" name="username" value="{{$user->user_name}}" required></td>
           </tr>
           <tr>
@@ -35,7 +35,7 @@
             <td>
               <select class="form-control" name="user_type">
               <option>Select</option>
-              <option value="Super Admin" @if($user->user_type=="Super Admin") selected @else "" @endif>Super Admin</option>
+              <option value="Super admin" @if($user->user_type=="Super admin") selected @else "" @endif>Super Admin</option>
               <option value="Manager" @if($user->user_type=="Manager") selected @else "" @endif>Manager</option>
             </select>
           </td>

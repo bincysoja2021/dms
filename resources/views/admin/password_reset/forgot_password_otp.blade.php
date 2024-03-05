@@ -46,7 +46,7 @@
           @endforeach
         @endif     
         <label>Enter OTP <span style="color: red;">*</span></label>
-        <input type="text" class="form-control" placeholder="Enter OTP" name="otp" required>      
+        <input type="text" class="form-control" placeholder="Enter OTP" name="otp" required autocomplete="off">      
         <button type="submit" class="btn btn-primary btn-login">Reset Password</button>  
       </form>    
     </div>

@@ -2,16 +2,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-
 <!-- Bootstrap core CSS -->
 <link href="{{ asset ('css/bootstrap.min.css') }}" rel="stylesheet">
-
 <link rel="stylesheet" href="{{ asset ('font-awesome/css/font-awesome.min.css') }}">
 <link href="{{ asset ('css/jquery.fancybox.css') }}" rel="stylesheet">
 
 <!-- Custom styles for this template -->
 <link href="{{ asset ('css/style.css') }}" rel="stylesheet">
-
 </head>
 
 <body>
@@ -38,7 +35,7 @@
       <div class="dropdown-menu">
         <a class="dropdown-item" href="{{ url ('/view_user')}}">User Profile</a>
         <a class="dropdown-item" href="{{ url ('/settings')}}">Settings</a>
-        <a class="dropdown-item" href="{{ url('role_logout') }}">Logout</a>
+        <a class="dropdown-item" href="{{ url('user_logout') }}">Logout</a>
       </div>
     </span>
   </div>
