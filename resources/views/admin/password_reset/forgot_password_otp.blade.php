@@ -40,13 +40,14 @@
       <form method="POST" action="{{ route('otp_submit') }}">
         <input type="hidden" name="user_id" value="">
         @csrf    
+            
+        <label>Enter OTP <span style="color: red;">*</span></label>
+        <input type="text" class="form-control" placeholder="Enter OTP" name="otp" required autocomplete="off">     
         @if ($errors->any())
           @foreach ($errors->all() as $error)
             <div class="alert alert-danger">{{$error}}</div>
           @endforeach
-        @endif     
-        <label>Enter OTP <span style="color: red;">*</span></label>
-        <input type="text" class="form-control" placeholder="Enter OTP" name="otp" required autocomplete="off">      
+        @endif  
         <button type="submit" class="btn btn-primary btn-login">Reset Password</button>  
       </form>    
     </div>

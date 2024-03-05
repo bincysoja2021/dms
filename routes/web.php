@@ -22,8 +22,6 @@ Auth::routes();
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/user_logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout');
-    // Route::get('/view_user', [App\Http\Controllers\Usercontoller::class, 'view_user'])->name('view_user');
-    // Route::get('/edit_user', [App\Http\Controllers\Usercontoller::class, 'edit_user'])->name('edit_user');
     Route::get('/settings', [App\Http\Controllers\Usercontoller::class, 'settings'])->name('settings');
     Route::get('/edit_profile/{id}', [App\Http\Controllers\Usercontoller::class, 'edit_profile'])->name('edit_profile');
     Route::post('/update_profile', [App\Http\Controllers\Usercontoller::class, 'update_profile'])->name('update_profile');
@@ -72,7 +70,7 @@ Auth::routes();
     Route::post('/add_user_submit', [App\Http\Controllers\Usercontoller::class, 'submit'])->name('add_user_submit');
     Route::post('/update_user_submit', [App\Http\Controllers\Usercontoller::class, 'update_user'])->name('update_user_submit');
     Route::get('/list_users', [App\Http\Controllers\Usercontoller::class, 'getusers'])->name('users.list');
-    Route::delete('/delete_users/{id}', [App\Http\Controllers\Notificationcontoller::class, 'delete'])->name('delete.users');
+    Route::get('/delete_users/{id}', [App\Http\Controllers\Usercontoller::class, 'user_delete'])->name('delete.users');
 ##########################################################################################################
 
 ###########################  Datatable for notifications###################################################

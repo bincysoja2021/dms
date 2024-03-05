@@ -15,13 +15,13 @@
     <h2 class="main-heading">View User</h2>
     <div class="tag-block">
       <table class="table table-striped">        
-        <tr>
+        <!-- <tr>
           <td>Username</td>
           <td width="10">:</td>
           <td>
             <input type="text" class="form-control" name="" value="{{$data->full_name}}" disabled>
           </td>
-        </tr>
+        </tr> -->
         <tr>
           <td>User email</td>
           <td width="10">:</td>
@@ -90,9 +90,9 @@
           </td>
         </tr>
       </table>
-      <div class="btn-groups">
+      <!-- <div class="btn-groups">
         <a href="{{url('/edit_users/'.$data->id)}}" class="btn btn-info">Edit</a>        
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

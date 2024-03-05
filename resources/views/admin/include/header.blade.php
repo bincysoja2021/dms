@@ -30,10 +30,10 @@
     </a>
     <span class="dropdown">      
       <a class="dropdown-toggle" data-toggle="dropdown">
-        <img src="{{ asset ('images/user-image.png') }}"> <span>{{ Auth::user()->user_name }}</span>
+        <img src="{{ asset ('images/user-image.png') }}"> <span>{{ Auth::user()->full_name }}</span>
       </a>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="{{ url ('/view_user')}}">User Profile</a>
+        <a class="dropdown-item" href="{{ url ('/view_users/'.Auth::user()->id)}}">User Profile</a>
         <a class="dropdown-item" href="{{ url ('/settings')}}">Settings</a>
         <a class="dropdown-item" href="{{ url('user_logout') }}">Logout</a>
       </div>

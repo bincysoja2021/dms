@@ -27,17 +27,19 @@
         <input type="hidden" name="id" value="{{$user->id}}"}>
         <table class="table table-striped">
           <tr>
-            <td>Username<span class="text-danger">*</span></td>
-            <td><input type="text" class="form-control" name="username" value="{{$user->user_name}}" required></td>
+            <td>Full name<span class="text-danger">*</span></td>
+            <td><input type="text" class="form-control" name="full_name" value="{{$user->full_name}}" required></td>
           </tr>
           <tr>
             <td>User type<span class="text-danger">*</span></td>
             <td>
-              <select class="form-control" name="user_type">
+               @if(Session::get('user_role')=="Super admin" || Session::get('user_role')=="Manager")
+              <select class="form-control" name="user_type" disabled>
               <option>Select</option>
               <option value="Super admin" @if($user->user_type=="Super admin") selected @else "" @endif>Super Admin</option>
               <option value="Manager" @if($user->user_type=="Manager") selected @else "" @endif>Manager</option>
             </select>
+            @endif
           </td>
           </tr>
           <tr>

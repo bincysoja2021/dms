@@ -19,7 +19,19 @@
 
 <!-- Custom styles for this template -->
 <link href="{{ asset ('css/style.css') }}" rel="stylesheet">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+<style type="text/css">
+  .parent_password{
+  position: relative;
+}
+.eye_show {
+  z-index: 9999;
+  position: absolute;
+  top: 30%;
+  right: 10px;
+}
+</style>
 </head>
 
 <body>
@@ -28,11 +40,6 @@
   <img src="{{ asset ('images/logo.svg') }}" class="login-logo">
   <div class="login-box">
     <h3>DMS Login</h3>
-    @if(Session::has('message'))
-          <div class="alert alert-{{session('message')['type']}}">
-              {{session('message')['text']}}
-          </div>
-      @endif
     <div class="login-in">
         <form method="POST" action="{{ route('login') }}">
           @csrf
@@ -44,7 +51,11 @@
             </span>
           @enderror
           <label>Password</label>
-          <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter your password" name="password" required autocomplete="off"> @error('password')
+          <div class="parent_password">
+          <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter your password" name="password" id="password" required autocomplete="off">
+          <span toggle="#password_show" class="fa fa-fw fa-eye field_icon toggle-password eye_show"></span>
+        </div>
+           @error('password')
             <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
             </span>
@@ -69,8 +80,29 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript">
+  $(document).on('click', '.toggle-password', function() {
+    $(this).toggleClass("fa-eye fa-eye-slash");
+    var input = $("#password");
+    input.attr('type') === 'password' ? input.attr('type','text') : input.attr('type','password')
+});
+</script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-slim.min.js"><\/script>')</script>
 <script src="{{ asset ('js/bootstrap.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script type="text/javascript">
+  @if(session()->has('message'))
+      swal({
+
+          title: "Success!",
+
+          text: "{{ session()->get('message') }}",
+
+          icon: "success",
+
+      });
+  @endif
+  </script>
 </body>
 </html>

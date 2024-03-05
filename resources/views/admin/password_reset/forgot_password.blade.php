@@ -37,13 +37,14 @@
       @endif
       <form method="POST" action="{{ route('forgot_password_submit') }}">
         @csrf    
-        @if ($errors->any())
+        
+          <label>Email<span style="color: red;">*</span></label>
+          <input type="email" class="form-control" placeholder="Enter your email" name="email" required autocomplete="off">
+          @if ($errors->any())
           @foreach ($errors->all() as $error)
             <div class="alert alert-danger">{{$error}}</div>
           @endforeach
         @endif
-          <label>Email<span style="color: red;">*</span></label>
-          <input type="email" class="form-control" placeholder="Enter your email" name="email" required autocomplete="off">
           <button type="submit" class="btn btn-primary btn-login">Submit</button>
       </form>        
     </div>

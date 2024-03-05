@@ -16,10 +16,22 @@
 <link href="{{ asset ('css/bootstrap.min.css') }}" rel="stylesheet">
 
 <link rel="stylesheet" href="{{ asset ('font-awesome/css/font-awesome.min.css') }}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 
 <!-- Custom styles for this template -->
 <link href="{{ asset ('css/style.css') }}" rel="stylesheet">
-
+<style type="text/css">
+  .reset_password{
+  position: relative;
+}
+.eye_show {
+  z-index: 9999;
+  position: absolute;
+  top: 68%;
+  right: 10px;
+}
+</style>
 </head>
 
 <body>
@@ -36,10 +48,15 @@
             <div class="alert alert-danger">{{$error}}</div>
           @endforeach
         @endif
-        <label>Enter new password</label>
-        <input type="text" class="form-control" placeholder="Enter your username" name="password" autocomplete="off" required>
-        <label>Re-enter new password</label>
-        <input type="password" class="form-control" placeholder="Enter your password" name="password-confirm" autocomplete="off" required>
+        <div class="reset_password">
+          <label>Enter new password</label>
+          <input type="password" class="form-control" placeholder="Enter your username" name="password" autocomplete="off" required id="password">
+          
+          <span toggle="#password_show" class="fa fa-fw fa-eye field_icon toggle_reset_password eye_show"></span>
+        </div>
+          <label>Re-enter new password</label>
+          <input type="password" class="form-control" placeholder="Enter your password" name="password-confirm" autocomplete="off" required>
+
         <button class="btn btn-primary btn-login">Reset</button> 
       </form>     
     </div>
@@ -59,6 +76,13 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript">
+  $(document).on('click', '.toggle_reset_password', function() {
+    $(this).toggleClass("fa-eye fa-eye-slash");
+    var input = $("#password");
+    input.attr('type') === 'password' ? input.attr('type','text') : input.attr('type','password')
+});
+</script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-slim.min.js"><\/script>')</script>
 <script src="{{ asset ('js/bootstrap.min.js') }}"></script>

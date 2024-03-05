@@ -23,13 +23,13 @@
             @endforeach
           @endif 
         <table class="table table-striped">        
-          <tr>
+          <!-- <tr>
             <td>Username<span class="text-danger">*</td>
             <td width="10">:</td>
             <td>
               <input type="text" class="form-control" name="user_name" value="{{$data->user_name}}" required >
             </td>
-          </tr>
+          </tr> -->
           <tr>
             <td>User email<span class="text-danger">*</td>
             <td width="10">:</td>
@@ -51,16 +51,19 @@
               <input type="text" class="form-control" name="employee_id" value="{{$data->employee_id}}"  required>
             </td>
           </tr>
-          <tr>
-            <td>User type<span class="text-danger">*</td>
-            <td width="10">:</td>
-            <td>
-              <select class="form-control" name="user_type" required>
-                <option value="Manager" @if($data->user_type== "Manager") echo selected @else "" @endif>Manager</option>
-                <option value="Super admin" @if($data->user_type== "Super admin") echo selected @else "" @endif>Super Admin</option>
-              </select>            
-            </td>
-          </tr>
+            <tr>
+              <td>User type<span class="text-danger">*</td>
+              <td width="10">:</td>
+              <td>
+                @if(Session::get('user_role')=="Super admin" || Session::get('user_role')=="Manager")
+                <select class="form-control" name="user_type"  disabled>
+                  <option value="Manager" @if($data->user_type== "Manager") echo selected @else "" @endif>Manager</option>
+                  <option value="Super admin" @if($data->user_type== "Super admin") echo selected @else "" @endif>Super Admin</option>
+                </select>   
+                @endif         
+              </td>
+            </tr>
+         
           <tr>
             <td>User created on<span class="text-danger">*</td>
             <td width="10">:</td>
@@ -112,7 +115,7 @@
           </tr>
         </table>
         <div class="btn-groups">
-          <button type="submit"  class="btn btn-primary">Save</button>
+          <button type="submit"  class="btn btn-primary">Update</button>
         </div>
     </form>
     <br>
@@ -129,7 +132,7 @@ $(document).ready(function(e){
     var id = $("#deactivate_user").val(); 
     swal({
       title: 'Are you sure?',
-      text: "Are you sure you want to deactivate this record?",
+      text: "Are you sure you want to deactivate this user?",
       type: 'warning',
       showCancelButton: true,
       confirmButtonClass: 'btn btn-success',
@@ -138,7 +141,25 @@ $(document).ready(function(e){
       buttonsStyling: false
     }).then((isConfirm) => {
     if (isConfirm){
-       window.location.href='/delete_users/'+id;
+       $.ajax({
+              type:'GET',
+              url:'{{url("/delete_users")}}/' +id,
+              data:{
+                  "_token": "{{ csrf_token() }}",
+              },
+              success:function(data) {
+              swal({
+
+              title: "Success!",
+
+              text: "User has been deactivated!..",
+
+              icon: "success",
+
+              });
+              window.location.href="{{url("all_users")}}";
+              }
+           });
     }
     });
   }); 

@@ -35,7 +35,7 @@ class HomeController extends Controller
     {
         Auth::logout();
         session()->forget('user_role');
-        return redirect('/');
+        return redirect('/')->with('message','User logout Successfully!');
 
     }
 }

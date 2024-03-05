@@ -17,8 +17,8 @@
     <div class="tag-block">
       <table class="table table-striped">
         <tr>
-          <td>Username</td>
-          <td>: {{ucfirst(Auth::user()->user_name)}}</td>
+          <td>Full name</td>
+          <td>: {{ucfirst(Auth::user()->full_name)}}</td>
         </tr>
         <tr>
           <td>User type</td>

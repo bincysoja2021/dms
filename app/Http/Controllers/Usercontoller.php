@@ -8,6 +8,10 @@ use Validator;
 use Redirect;
 use Hash;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Str;
+use Auth;
+use Session;
+use App\Models\Passwordhistroy;
 
 class Usercontoller extends Controller
 {
@@ -30,7 +34,7 @@ class Usercontoller extends Controller
     public function getusers(Request $request)
     {
         if ($request->ajax()) {
-            $data = User::latest()->get();
+            $data = User::where('deleted_at',NULL)->latest()->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
@@ -58,16 +62,12 @@ class Usercontoller extends Controller
     public function update_user(Request $req)
     { 
         $validatedData = $req->validate([
-          'user_name' => 'required|alpha|max:255',
-          'user_type' => 'required|string',
           'email' => 'required|email|email:rfc,dns|max:255',
-          'full_name'=>'required|alpha|max:100',
+          'full_name'=>'required|max:100',
           'employee_id'=>'required|max:10',
           'office'=>'required',
           'department_section'=>'required'
       ], [
-          'user_name.required' => 'Please enter the user name.',
-          'user_type.required' => 'Please enter the user type.',
           'full_name.required' => 'Please enter the name.',
           'employee_id.required' => 'Please enter the employee id.',
           'office.required' => 'Please enter the office.',
@@ -75,9 +75,7 @@ class Usercontoller extends Controller
           'department_section.required' => 'Please enter the Department.',
       ]);
         User::where('id',$req->id)->update([
-          'user_name'=>$req->user_name,
           'email'=>$req->email,
-          'user_type'=>$req->user_type,
           'full_name'=>$req->full_name,
           'employee_id'=>$req->employee_id,
           'office'=>$req->office,
@@ -110,18 +108,15 @@ class Usercontoller extends Controller
     public function update_profile(Request $req)
     { 
         $validatedData = $req->validate([
-          'username' => 'required|alpha|max:255',
-          'user_type' => 'required|string',
+          'full_name' => 'required|max:255',
           'email' => 'required|email|email:rfc,dns|max:255'
       ], [
-          'username.required' => 'Please enter the user name.',
-          'user_type.required' => 'Please enter the user type.',
+          'full_name.required' => 'Please enter the user name.',
           'email.required' => 'Please enter the email.',
       ]);
         User::where('id',$req->id)->update([
-          'user_name'=>$req->username,
-          'email'=>$req->email,
-          'user_type'=>$req->user_type
+          'full_name'=>$req->full_name,
+          'email'=>$req->email
         ]);
         return redirect()->route('settings')->with('message','User updated Successfully!');
 
@@ -153,6 +148,7 @@ class Usercontoller extends Controller
 **********************************/      
      public function edit_users($id)
     {
+         // print_r(Session::get('user_role'));
       $data=User::where('id',$id)->first();
       return view('admin.user.edit_user',compact('data'));
     }
@@ -164,7 +160,7 @@ class Usercontoller extends Controller
     {
       $validatedData = $req->validate([
           'full_name' => 'required|alpha|max:255',
-          'employee_id' => 'required|integer',
+          'employee_id' => 'required|integer|unique:users',
           'email' => 'required|email|email:rfc,dns|max:255|unique:users',
           'user_name' => 'required|alpha|max:255',
           'office' => 'required',
@@ -180,7 +176,8 @@ class Usercontoller extends Controller
           'user_type.required' => 'Please enter the type.',
           'department_section.required' => 'Please enter the department.',
       ]);
-        User::create([
+      $random_password=Str::random(6);
+      $userData=User::create([
           'full_name'=>$req->full_name,
           'email'=>$req->email,
           'employee_id'=>$req->employee_id,
@@ -190,20 +187,24 @@ class Usercontoller extends Controller
           'department_section'=>$req->department_section,
           'active_status'=>1,
           'user_registerd_date'=>date("Y-m-d"),
-          'password'=>Hash::make(123456),
-
+          'password'=>Hash::make($random_password),
+         ]); 
+        Passwordhistroy::create([
+            'added_by'=>Auth::user()->id,
+            'user_id'=>$userData->id,
+            'password_new'=>$random_password,
+            'password_new_date'=>date("Y-m-d")
         ]);
-        return redirect()->route('all_users')->with('message','User Added Successfully!');
+
+       return redirect()->route('all_users')->with('message','User Added Successfully!');
     }
 /**********************************
    Date        : 05/03/2024
    Description :  delete users
 **********************************/
-     public function delete($id)
+     public function user_delete($id)
     {
-        dd($id);
-        User::find($id)->delete();
-  
+        User::find($id)->update(['active_status'=>0]);
         return back();
     }
 
