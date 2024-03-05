@@ -43,20 +43,25 @@
     <div class="login-in">
       <form method="POST" action="{{ route('reset_password_submit') }}">
         @csrf    
-        @if ($errors->any())
-          @foreach ($errors->all() as $error)
-            <div class="alert alert-danger">{{$error}}</div>
-          @endforeach
-        @endif
+        
         <div class="reset_password">
           <label>Enter new password</label>
-          <input type="password" class="form-control" placeholder="Enter your username" name="password" autocomplete="off" required id="password">
+          <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter your username" name="password" autocomplete="off" required id="password">
           
           <span toggle="#password_show" class="fa fa-fw fa-eye field_icon toggle_reset_password eye_show"></span>
+          @error('password')
+            <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+            </span>
+          @enderror
         </div>
           <label>Re-enter new password</label>
-          <input type="password" class="form-control" placeholder="Enter your password" name="password-confirm" autocomplete="off" required>
-
+          <input type="password" class="form-control @error('password-confirm') is-invalid @enderror" placeholder="Enter your password" name="password-confirm" autocomplete="off" required>
+          @error('password-confirm')
+            <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+            </span>
+          @enderror
         <button class="btn btn-primary btn-login">Reset</button> 
       </form>     
     </div>
