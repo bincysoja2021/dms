@@ -78,5 +78,5 @@ Auth::routes();
     Route::get('notification/list', [App\Http\Controllers\Notificationcontoller::class, 'list'])->name('notification.list');
     Route::get('/notification', [App\Http\Controllers\Notificationcontoller::class, 'notification'])->name('notification');
     Route::get('/view_notification/{id}', [App\Http\Controllers\Notificationcontoller::class, 'view_message'])->name('view.notification');
-    Route::delete('/delete_notification/{id}', [App\Http\Controllers\Notificationcontoller::class, 'delete_message'])->name('delete.notification');
+    Route::get('/delete_notification/{id}', [App\Http\Controllers\Notificationcontoller::class, 'delete_message'])->name('delete.notification');
 #############################################################################################################

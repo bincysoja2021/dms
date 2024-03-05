@@ -35,6 +35,7 @@ class Notificationcontoller extends Controller
 ***************************************/    
     public function delete_message($id)
     {
+        dd($id);
         $msg=Notification::where('id',$id)->delete();
         return redirect()->route('notification');
     }
@@ -49,7 +50,7 @@ class Notificationcontoller extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = '<a href="' . route('view.notification', $row->id) .'"><i class="fa fa-eye"  aria-hidden="true"></i></a> <a href="' . route('delete.notification', $row->id) .'" data-toggle="modal" data-target="#notificationModal"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+                    $actionBtn = '<a href="' . route('view.notification', $row->id) .'"><i class="fa fa-eye"  aria-hidden="true"></i></a> <a class="btn btn-primary"  onclick="delete_modal(10)" ><i class="fa fa-trash" aria-hidden="true"></i></a>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
