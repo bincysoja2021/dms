@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('office')->nullable();
             $table->string('department_section')->nullable();
             $table->integer('active_status')->nullable();
-            $table->timestamp('last_login_time')->nullable();
+            $table->text('last_login_time')->nullable();
             $table->integer('otp')->nullable();
             $table->date('user_registerd_date')->nullable();
             $table->rememberToken();

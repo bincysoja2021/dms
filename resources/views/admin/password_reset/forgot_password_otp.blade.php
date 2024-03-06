@@ -42,12 +42,17 @@
         @csrf    
             
         <label>Enter OTP <span style="color: red;">*</span></label>
-        <input type="text" class="form-control" placeholder="Enter OTP" name="otp" required autocomplete="off">     
-        @if ($errors->any())
+        <input type="text" class="form-control @error('otp') is-invalid @enderror" placeholder="Enter OTP" name="otp" required autocomplete="off">   
+         @error('otp')
+            <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+            </span>
+          @enderror  
+        <!-- @if ($errors->any())
           @foreach ($errors->all() as $error)
             <div class="alert alert-danger">{{$error}}</div>
           @endforeach
-        @endif  
+        @endif   -->
         <button type="submit" class="btn btn-primary btn-login">Reset Password</button>  
       </form>    
     </div>

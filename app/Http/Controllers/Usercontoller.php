@@ -40,7 +40,7 @@ class Usercontoller extends Controller
                 ->addColumn('action', function($row){
                     $actionBtn = '<a href="' . route('view.users', $row->id) .'"><i class="fa fa-eye"  aria-hidden="true"></i></a>
                                   <a href="' . route('edit.users', $row->id) .'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                  <a href="' . route('delete.users', $row->id) .'" data-toggle="modal" data-target="#userModal"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+                                  <a href="' . route('user_deactivate', $row->id) .'"  onclick="delete_user_modal('.$row->id.')" ><i class="fa fa-trash" aria-hidden="true"></i></a>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
@@ -202,10 +202,19 @@ class Usercontoller extends Controller
    Date        : 05/03/2024
    Description :  delete users
 **********************************/
-     public function user_delete($id)
+     public function user_deactivate($id)
     {
         User::find($id)->update(['active_status'=>0]);
         return back();
     }
+/***************************************
+   Date        : 05/03/2024
+   Description :  delete users
+***************************************/    
+    public function delete_users($id)
+    {
+        $msg=User::where('id',$id)->delete();
+        return redirect()->route('all_users')->with('message','User deleted Successfully!');
+    }    
 
 }

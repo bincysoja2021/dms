@@ -95,13 +95,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
 
 <script type="text/javascript">
-  function delete_modal(id)
+  function delete_notification_modal(id)
   {
-    // alert("Dfhj") 
-    var id = 10; 
+    var id = id; 
     swal({
       title: 'Are you sure?',
-      text: "Are you sure you want to deactivate this user?",
+      text: "Are you sure you want to delete this notification?",
       type: 'warning',
       showCancelButton: true,
       confirmButtonClass: 'btn btn-success',
@@ -112,7 +111,7 @@
     if (isConfirm){
        $.ajax({
               type:'GET',
-              url:'{{url("/delete_users")}}/' +id,
+              url:'{{url("/delete_notification")}}/' +id,
               data:{
                   "_token": "{{ csrf_token() }}",
               },
@@ -121,12 +120,12 @@
 
               title: "Success!",
 
-              text: "User has been deactivated!..",
+              text: "Notification has been deleted!..",
 
               icon: "success",
 
               });
-              window.location.href="{{url("all_users")}}";
+              window.location.href="{{url("notification")}}";
               }
            });
     }

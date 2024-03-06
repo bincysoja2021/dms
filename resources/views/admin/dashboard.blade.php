@@ -13,6 +13,11 @@
   @include("admin.include.menu_left")
   <div class="main-area">
     <h2 class="main-heading">Dashboard</h2>
+     @if(Session::has('message'))
+        <div class="alert alert-{{session('message')['type']}}">
+            {{session('message')['text']}}
+        </div>
+      @endif
     @include("admin.include.search")
     <div class="dashbox-cover">
       <div class="dashbox-in">

@@ -106,4 +106,44 @@
   });
 
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+
+<script type="text/javascript">
+  function delete_user_modal(id)
+  {
+    var id = id; 
+    swal({
+      title: 'Are you sure?',
+      text: "Are you sure you want to delete this user?",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger',
+      confirmButtonText: 'Yes, delete it!',
+      buttonsStyling: false
+    }).then((isConfirm) => {
+    if (isConfirm){
+       $.ajax({
+              type:'GET',
+              url:'{{url("/delete_users")}}/' +id,
+              data:{
+                  "_token": "{{ csrf_token() }}",
+              },
+              success:function(data) {
+              swal({
+
+              title: "Success!",
+
+              text: "User has been deleted!..",
+
+              icon: "success",
+
+              });
+              window.location.href="{{url("all_users")}}";
+              }
+           });
+    }
+    });
+  }
+</script>
 @include("admin.include.footer")

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\User;
+use App\Models\Userlogs;
+
 
 class HomeController extends Controller
 {
@@ -14,6 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+        date_default_timezone_set("Asia/Kolkata");
         $this->middleware('auth');
     }
 
@@ -22,9 +26,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         $session_role=session()->put('user_role', Auth::user()->user_type);
+        User::where('id',Auth::user()->id)->update(['last_login_time'=>date("d-m-Y h:i:sa")]);
+        Userlogs::create(['user_id'=>Auth::user()->id,'last_login_time'=>date("d-m-Y h:i:sa"),'login_ip'=>request()->ip()]);
         return view('admin.dashboard');
     }
 /******************************
@@ -38,4 +44,5 @@ class HomeController extends Controller
         return redirect('/')->with('message','User logout Successfully!');
 
     }
+
 }

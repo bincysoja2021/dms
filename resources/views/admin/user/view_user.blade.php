@@ -75,24 +75,36 @@
           <td>Office</td>
           <td width="10">:</td>
           <td>
+            @if($data->office!=null)
             <select class="form-control" disabled>              
               <option>{{$data->office}}</option>              
             </select>
+            @else
+            <select class="form-control" disabled>              
+              <option>Select</option>
+            </select>
+            @endif
           </td>
         </tr>
         <tr>
           <td>Department/Section</td>
           <td width="10">:</td>
           <td>
+            @if($data->department_section!=null)
             <select class="form-control" disabled>              
               <option>{{$data->department_section}}</option>
             </select>
+            @else
+            <select class="form-control" disabled>              
+              <option>Select</option>
+            </select>
+            @endif
           </td>
         </tr>
       </table>
-      <!-- <div class="btn-groups">
+      <div class="btn-groups">
         <a href="{{url('/edit_users/'.$data->id)}}" class="btn btn-info">Edit</a>        
-      </div> -->
+      </div>
     </div>
   </div>
 </div>

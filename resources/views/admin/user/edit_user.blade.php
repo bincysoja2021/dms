@@ -119,7 +119,9 @@
         </div>
     </form>
     <br>
+    @if(Auth::user()->user_type=="Super admin")
     <button value="{{$data->id}}" class="btn btn-warning user_deactivate" id="deactivate_user">De-activate User</button>
+    @endif
     </div>
   </div>
 </div>

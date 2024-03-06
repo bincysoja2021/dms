@@ -39,12 +39,12 @@
         @csrf    
         
           <label>Email<span style="color: red;">*</span></label>
-          <input type="email" class="form-control" placeholder="Enter your email" name="email" required autocomplete="off">
-          @if ($errors->any())
-          @foreach ($errors->all() as $error)
-            <div class="alert alert-danger">{{$error}}</div>
-          @endforeach
-        @endif
+          <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Enter your email" name="email" required autocomplete="off">
+           @error('email')
+            <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+            </span>
+          @enderror
           <button type="submit" class="btn btn-primary btn-login">Submit</button>
       </form>        
     </div>

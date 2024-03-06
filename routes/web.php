@@ -70,7 +70,8 @@ Auth::routes();
     Route::post('/add_user_submit', [App\Http\Controllers\Usercontoller::class, 'submit'])->name('add_user_submit');
     Route::post('/update_user_submit', [App\Http\Controllers\Usercontoller::class, 'update_user'])->name('update_user_submit');
     Route::get('/list_users', [App\Http\Controllers\Usercontoller::class, 'getusers'])->name('users.list');
-    Route::get('/delete_users/{id}', [App\Http\Controllers\Usercontoller::class, 'user_delete'])->name('delete.users');
+    Route::get('/user_deactivate/{id}', [App\Http\Controllers\Usercontoller::class, 'user_deactivate'])->name('user_deactivate');
+    Route::get('/delete_users/{id}', [App\Http\Controllers\Usercontoller::class, 'delete_users'])->name('delete.users');
 ##########################################################################################################
 
 ###########################  Datatable for notifications###################################################
@@ -78,5 +79,5 @@ Auth::routes();
     Route::get('notification/list', [App\Http\Controllers\Notificationcontoller::class, 'list'])->name('notification.list');
     Route::get('/notification', [App\Http\Controllers\Notificationcontoller::class, 'notification'])->name('notification');
     Route::get('/view_notification/{id}', [App\Http\Controllers\Notificationcontoller::class, 'view_message'])->name('view.notification');
-    Route::get('/delete_notification/{id}', [App\Http\Controllers\Notificationcontoller::class, 'delete_message'])->name('delete.notification');
+    Route::get('/delete_notification/{id}', [App\Http\Controllers\Notificationcontoller::class, 'delete_notification'])->name('delete.notification');
 #############################################################################################################
