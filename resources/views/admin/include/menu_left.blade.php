@@ -40,19 +40,21 @@
           </div>
         </div>
       </div>
-      <div class="card">
-        <div class="card-header">
-          <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
-            <i class="fa fa-users first" aria-hidden="true"></i> User Management <i class="fa fa-caret-right second" aria-hidden="true"></i>
-          </a>
-        </div>
-        <div id="collapseThree" class="collapse" data-parent="#accordion">
-          <div class="card-body">
-            <a href="{{url('/all_users')}}">All users <i class="fa fa-caret-right" aria-hidden="true"></i></a>
-            <a href="{{url('add_users')}}">Add users <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+      @if(Auth::user()->user_type=="Super admin")
+        <div class="card">
+          <div class="card-header">
+            <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+              <i class="fa fa-users first" aria-hidden="true"></i> User Management <i class="fa fa-caret-right second" aria-hidden="true"></i>
+            </a>
+          </div>
+          <div id="collapseThree" class="collapse" data-parent="#accordion">
+            <div class="card-body">
+              <a href="{{url('/all_users')}}">All users <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+                <a href="{{url('add_users')}}">Add users <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+            </div>
           </div>
         </div>
-      </div>
+       @endif
     </div>
     <ul>      
       <li><a href="{{url('/tags')}}"><img src="{{ asset ('images/tag-icon.svg') }}"> Tags <i class="fa fa-caret-right" aria-hidden="true"></i></a></li>

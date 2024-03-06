@@ -17,70 +17,93 @@
       <div class="dash-table-all" style="max-width:700px;">  
        <form method="POST" action="{{ url('add_user_submit') }}">
         @csrf   
-        @if ($errors->any())
+       <!--  @if ($errors->any())
             @foreach ($errors->all() as $error)
               <div class="alert alert-danger">{{$error}}</div>
             @endforeach
-          @endif   
+          @endif  -->  
         <table class="table table-striped">        
         <tr>
-          <td>User Full Name</td>
+          <td>User Email ID<span style="color: red;">*</span></td>
           <td width="10">:</td>
           <td>
-            <input type="text" class="form-control" name="full_name" value="" required autocomplete="off">
+            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="" required autocomplete="off">
+            @error('email')
+            <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+            </span>
+          @enderror  
+          </td>
+        </tr>
+        <!-- <tr>
+          <td>Employee ID<span style="color: red;">*</span></td>
+          <td width="10">:</td>
+          <td>
+            <input type="text" class="form-control @error('employee_id') is-invalid @enderror" name="employee_id" value="" required autocomplete="off">
+            @error('employee_id')
+            <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+            </span>
+          @enderror  
+          </td>
+        </tr> -->
+        <tr>
+          <td>Username<span style="color: red;">*</span></td>
+          <td width="10">:</td>
+          <td>
+            <input type="text" class="form-control @error('user_name') is-invalid @enderror" name="user_name" value="" required autocomplete="off">
+            @error('user_name')
+            <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+            </span>
+          @enderror  
           </td>
         </tr>
         <tr>
-          <td>User Email ID</td>
+          <td>User Type<span style="color: red;">*</span></td>
           <td width="10">:</td>
           <td>
-            <input type="email" class="form-control" name="email" value="" required autocomplete="off">
-          </td>
-        </tr>
-        <tr>
-          <td>Employee ID</td>
-          <td width="10">:</td>
-          <td>
-            <input type="text" class="form-control" name="employee_id" value="" required autocomplete="off">
-          </td>
-        </tr>
-        <tr>
-          <td>Username</td>
-          <td width="10">:</td>
-          <td>
-            <input type="text" class="form-control" name="user_name" value="" required autocomplete="off">
-          </td>
-        </tr>
-        <tr>
-          <td>User Type</td>
-          <td width="10">:</td>
-          <td>
-            <select class="form-control" name="user_type">
+            <select class="form-control @error('user_type') is-invalid @enderror" name="user_type" required>
               <option>Select</option>
               <option value="Manager">Manager</option>
               <option value="Super Admin">Super Admin</option>
             </select> 
+            @error('user_type')
+            <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+            </span>
+          @enderror 
           </td>
         </tr>
         <tr>
           <td>Office</td>
           <td width="10">:</td>
           <td>
-            <select class="form-control" name="office">
+            <select class="form-control @error('office') is-invalid @enderror" name="office" required>
               <option>Select</option>
               <option value="GTN Textiles">GTN Textiles</option>              
             </select>
+            @error('office')
+            <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+            </span>
+          @enderror 
           </td>
         </tr>
         <tr>
           <td>Department/Section</td>
           <td width="10">:</td>
           <td>
-            <select class="form-control" name="department_section">
+            <select class="form-control @error('department_section') is-invalid @enderror" name="department_section" required>
               <option>Select</option>
               <option value="Sales">Sales</option>
               <option value="Finance">Finance</option>
             </select>
+            @error('department_section')
+            <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+            </span>
+          @enderror 
           </td>
         </tr>
       </table>

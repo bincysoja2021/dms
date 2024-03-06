@@ -33,7 +33,7 @@
               <th>Email ID</th>
               <th>User Type</th>            
               <th>Last Login</th>
-              <th>Active Status</th>
+              <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -101,6 +101,18 @@
             {data: 'last_login_time', name: 'last_login_time'},
             {data: 'active_status', name: 'active_status'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
+        ],
+        columnDefs: [
+        {
+            "render": function(data, type, row) {
+                if (row.active_status==1) {
+                    return '<span class="text-success">Active</span>';
+                }
+                else {
+                    return '<span class="text-danger">In-active</span>';
+                }
+             }, "targets": [5]
+        }
         ]
     });
   });

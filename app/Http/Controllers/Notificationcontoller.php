@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Notification;
 use Yajra\DataTables\DataTables;
+use Auth;
 
 class Notificationcontoller extends Controller
 {
@@ -49,7 +50,11 @@ class Notificationcontoller extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = '<a href="' . route('view.notification', $row->id) .'"><i class="fa fa-eye"  aria-hidden="true"></i></a> <a class="btn btn-primary"  onclick="delete_notification_modal('.$row->id.')" ><i class="fa fa-trash" aria-hidden="true"></i></a>';
+                    $actionBtn = '<a href="' . route('view.notification', $row->id) .'"><i class="fa fa-eye"  aria-hidden="true"></i></a> ';
+                    if(Auth::user()->user_type=="Super admin")
+                    {
+                       $actionBtn .= '<a class="btn btn-primary"  onclick="delete_notification_modal('.$row->id.')" ><i class="fa fa-trash" aria-hidden="true"></i></a>';
+                    }
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])

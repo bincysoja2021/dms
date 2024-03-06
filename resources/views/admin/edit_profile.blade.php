@@ -17,18 +17,24 @@
     <div class="tag-block">
       <form method="POST" action="{{ url('update_profile') }}">
         @csrf
-          @if ($errors->any())
+         <!--  @if ($errors->any())
             @foreach ($errors->all() as $error)
               <div class="alert alert-danger">{{$error}}</div>
             @endforeach
-          @endif
+          @endif -->
          
 
         <input type="hidden" name="id" value="{{$user->id}}"}>
         <table class="table table-striped">
           <tr>
             <td>Full name<span class="text-danger">*</span></td>
-            <td><input type="text" class="form-control" name="full_name" value="{{$user->full_name}}" required></td>
+            <td><input type="text" class="form-control @error('full_name') is-invalid @enderror" name="full_name" value="{{$user->full_name}}" required>
+            @error('full_name')
+              <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+              </span>
+            @enderror 
+           </td>
           </tr>
           <tr>
             <td>User type<span class="text-danger">*</span></td>
@@ -44,7 +50,13 @@
           </tr>
           <tr>
             <td>User Email<span class="text-danger">*</td>
-            <td> <input type="email" class="form-control" name="email" value="{{$user->email}}" required></td>
+            <td> <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{$user->email}}" required>
+             @error('email')
+              <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+              </span>
+            @enderror 
+          </td>
           </tr>
           <tr>
             <td>Password reset</td>

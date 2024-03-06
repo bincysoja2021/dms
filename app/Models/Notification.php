@@ -16,6 +16,8 @@ class Notification extends Model
         'added_by',
         'edited_by',
         'active_status',
-        'msg_title'
+        'msg_title',
+        'user_id',
+        'user_type'
     ];
 }

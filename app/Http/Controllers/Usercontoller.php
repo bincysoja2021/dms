@@ -64,12 +64,10 @@ class Usercontoller extends Controller
         $validatedData = $req->validate([
           'email' => 'required|email|email:rfc,dns|max:255',
           'full_name'=>'required|max:100',
-          'employee_id'=>'required|max:10',
           'office'=>'required',
           'department_section'=>'required'
       ], [
           'full_name.required' => 'Please enter the name.',
-          'employee_id.required' => 'Please enter the employee id.',
           'office.required' => 'Please enter the office.',
           'email.required' => 'Please enter the email.',
           'department_section.required' => 'Please enter the Department.',
@@ -77,7 +75,7 @@ class Usercontoller extends Controller
         User::where('id',$req->id)->update([
           'email'=>$req->email,
           'full_name'=>$req->full_name,
-          'employee_id'=>$req->employee_id,
+          'user_name'=>$req->full_name,
           'office'=>$req->office,
           'department_section'=>$req->department_section
         ]);
@@ -159,17 +157,13 @@ class Usercontoller extends Controller
     public function submit(Request $req)
     {
       $validatedData = $req->validate([
-          'full_name' => 'required|alpha|max:255',
-          'employee_id' => 'required|integer|unique:users',
           'email' => 'required|email|email:rfc,dns|max:255|unique:users',
           'user_name' => 'required|alpha|max:255',
           'office' => 'required',
           'user_type' => 'required',
-          'department_section' => 'required|alpha',
+          'department_section' => 'required',
 
       ], [
-          'full_name.required' => 'Please enter the name.',
-          'employee_id.required' => 'Please enter the Id.',
           'email.required' => 'Please enter the email.',
           'user_name.required' => 'Please enter the user name.',
           'office.required' => 'Please enter the office.',
@@ -178,10 +172,10 @@ class Usercontoller extends Controller
       ]);
       $random_password=Str::random(6);
       $userData=User::create([
-          'full_name'=>$req->full_name,
           'email'=>$req->email,
-          'employee_id'=>$req->employee_id,
-          'user_name'=>$req->user_name,
+          'employee_id'=>random_int(100000, 999999),
+          'full_name'=>$req->full_name,
+          'user_name'=>$req->full_name,
           'user_type'=>$req->user_type,
           'office'=>$req->office,
           'department_section'=>$req->department_section,

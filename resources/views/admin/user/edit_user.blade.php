@@ -17,11 +17,11 @@
       <form method="POST" action="{{ url('update_user_submit') }}">
         <input type="hidden" name="id" value="{{$data->id}}">
         @csrf   
-        @if ($errors->any())
+        <!-- @if ($errors->any())
             @foreach ($errors->all() as $error)
               <div class="alert alert-danger">{{$error}}</div>
             @endforeach
-          @endif 
+          @endif  -->
         <table class="table table-striped">        
           <!-- <tr>
             <td>Username<span class="text-danger">*</td>
@@ -34,21 +34,31 @@
             <td>User email<span class="text-danger">*</td>
             <td width="10">:</td>
             <td>
-              <input type="email" class="form-control" name="email" value="{{$data->email}}"  required>
+              <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{$data->email}}"  required>
+              @error('email')
+            <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+            </span>
+          @enderror  
             </td>
           </tr>
           <tr>
             <td>User Full name<span class="text-danger">*</td>
             <td width="10">:</td>
             <td>
-              <input type="text" class="form-control" name="full_name" value="{{$data->full_name}}" required>
+              <input type="text" class="form-control @error('full_name') is-invalid @enderror" name="full_name" value="{{$data->full_name}}" required>
+              @error('full_name')
+            <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+            </span>
+          @enderror  
             </td>
           </tr>
           <tr>
             <td>Employee ID<span class="text-danger">*</td>
             <td width="10">:</td>
             <td>
-              <input type="text" class="form-control" name="employee_id" value="{{$data->employee_id}}"  required>
+              <input type="text" class="form-control" name="employee_id" value="{{$data->employee_id}}"   readonly>
             </td>
           </tr>
             <tr>
