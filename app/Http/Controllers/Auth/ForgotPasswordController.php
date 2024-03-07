@@ -11,6 +11,8 @@ use Validator;
 use Redirect;
 use Session;
 use Hash;
+use Auth;
+use App\Models\Passwordhistroy;
 
 class ForgotPasswordController extends Controller
 {
@@ -57,6 +59,15 @@ class ForgotPasswordController extends Controller
     {
       return view('admin.password_reset.forgot_password');
     }
+/****************************************
+   Date        : 07/03/2024
+   Description :  reset user password
+****************************************/
+    public function reset_user_password()
+    {
+      return view('admin.manager.reset_password');
+    }
+
 /*****************************************
    Date        : 01/03/2024
    Description :  otp send to the email
@@ -75,7 +86,7 @@ class ForgotPasswordController extends Controller
     }
 /*******************************************
    Date        : 01/03/2024
-   Description : Password rest submission
+   Description : Password reset submission
 *******************************************/    
     public function reset_password_submit(Request $req)
     {
@@ -97,6 +108,33 @@ class ForgotPasswordController extends Controller
       Session::flash('message', ['text'=>'Succssfully updated the password!....','type'=>'success']);
       return redirect('/');
     } 
+
+/*******************************************
+   Date        : 07/03/2024
+   Description : Manager Password reset submission
+*******************************************/    
+    public function manager_reset_password_submit(Request $req)
+    {
+      // $this->validate($req,
+      // [
+      //     'password'=>['required', 'min:6','regex:/[a-z]/','regex:/[A-Z]/','regex:/[0-9]/','regex:/[@$!%*#?&]/'],
+      //     'password-confirm'=>['required_with:password','same:password','min:6'],
+      // ]);
+      $validatedData = $req->validate([
+          'password' => 'required|min:6|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/',
+          'password-confirm' => 'required_with:password|same:password|min:6'
+      ], [
+          'password.required' => 'Please enter the atleast one Capital letter,small letter,numbers and special letters.',
+          'password-confirm.required' => 'Please enter the same password.',
+      ]);
+      User::where('id',Auth::user()->id)->update(['password'=>Hash::make($req->password)]);
+      $Passwordhistroy=Passwordhistroy::where('user_id',Auth::user()->id)->first();
+      Passwordhistroy::where('user_id',Auth::user()->id)->update(['password_new'=>$req->password,'password_old'=>$Passwordhistroy->password_new]);
+      // Session::flash('message', ['text'=>'Succssfully updated the password!....','type'=>'success']);
+      session()->forget('user_role');
+      Auth::logout();
+      return redirect('/')->with('message','Succssfully updated the password!');
+    }     
 /**********************************
    Date        : 01/03/2024
    Description :  Forgot password

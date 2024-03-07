@@ -58,10 +58,12 @@
             @enderror 
           </td>
           </tr>
-          <tr>
-            <td>Password reset</td>
-            <td> <a href="">click here to reset password</a></td>
-          </tr>
+          @if(Auth::user()->user_type=="Manager")
+            <tr>
+              <td>Password reset</td>
+              <td> <a href="">click here to reset password</a></td>
+            </tr>
+          @endif
           <tr>
             <td>User registered on</td>
             <td><input type="text" class="form-control" name="created_at" value="{{$user->created_at}}" readonly></td>

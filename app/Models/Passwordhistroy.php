@@ -17,6 +17,7 @@ class Passwordhistroy extends Model
         'password_newly_old',
         'password_old_date',
         'password_new_date',
-        'password_newly_old_date'
+        'password_newly_old_date',
+        'user_type'
     ];
 }

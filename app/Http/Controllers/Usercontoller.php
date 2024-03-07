@@ -158,7 +158,7 @@ class Usercontoller extends Controller
     {
       $validatedData = $req->validate([
           'email' => 'required|email|email:rfc,dns|max:255|unique:users',
-          'user_name' => 'required|alpha|max:255',
+          'user_name' => 'required|max:255',
           'office' => 'required',
           'user_type' => 'required',
           'department_section' => 'required',
@@ -174,8 +174,8 @@ class Usercontoller extends Controller
       $userData=User::create([
           'email'=>$req->email,
           'employee_id'=>random_int(100000, 999999),
-          'full_name'=>$req->full_name,
-          'user_name'=>$req->full_name,
+          'full_name'=>$req->user_name,
+          'user_name'=>$req->user_name,
           'user_type'=>$req->user_type,
           'office'=>$req->office,
           'department_section'=>$req->department_section,
@@ -183,14 +183,27 @@ class Usercontoller extends Controller
           'user_registerd_date'=>date("Y-m-d"),
           'password'=>Hash::make($random_password),
          ]); 
-        Passwordhistroy::create([
+      $user_details=User::where('email',$req->email)->first();
+      $details = [
+        'type' => 'Password',
+        'customer_details' => $user_details,
+        'user_name'=>$req->user_name,
+        'random_password'=>$random_password,
+        'email'=>$user_details->email,
+        'host'=> $_SERVER['HTTP_HOST'],
+        'subject' => "Your registerd  Password !",
+      ];
+      $response=send_otp_to_email($req->email,$details,$blade="admin.email.send_password",$subject="Generated password",$user_details->user_name);
+      // dd($response);
+      Passwordhistroy::create([
             'added_by'=>Auth::user()->id,
             'user_id'=>$userData->id,
             'password_new'=>$random_password,
+            'user_type'=>$req->user_type,
             'password_new_date'=>date("Y-m-d")
-        ]);
+      ]);
 
-       return redirect()->route('all_users')->with('message','User Added Successfully!');
+      return redirect()->route('all_users')->with('message','User Added Successfully!');
     }
 /**********************************
    Date        : 05/03/2024

@@ -95,13 +95,15 @@
               <input type="text" class="form-control" name="last_login_time" value="{{$data->last_login_time}}" disabled>
             </td>
           </tr>
+          @if(Auth::user()->user_type=="Manager")
           <tr>
             <td>Reset password</td>
             <td width="10">:</td>
             <td>
-              <a href="#">Reset user password</a>
+              <a href="{{ url('reset_user_password') }}">Reset user password</a>
             </td>
           </tr>
+          @endif
           <tr>
             <td>Office<span class="text-danger">*</td>
             <td width="10">:</td>

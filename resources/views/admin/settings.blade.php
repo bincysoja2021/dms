@@ -28,10 +28,12 @@
           <td>User Email</td>
           <td>: {{ Auth::user()->email }}</td>
         </tr>
-        <tr>
-          <td>Password reset</td>
-          <td>: <a href="">click here to reset password</a></td>
-        </tr>
+        @if(Auth::user()->user_type=="Manager")
+          <tr>
+            <td>Password reset</td>
+            <td>: <a href="">click here to reset password</a></td>
+          </tr>
+        @endif
         <tr>
           <td>User registered on</td>
           <td>: {{ Auth::user()->created_at }}</td>

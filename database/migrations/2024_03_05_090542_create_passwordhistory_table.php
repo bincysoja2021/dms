@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('password_newly_old')->nullable();
             $table->date('password_old_date')->nullable();
             $table->date('password_new_date')->nullable();
+            $table->text('user_type')->nullable();
             $table->date('password_newly_old_date')->nullable();
             $table->timestamps();
         });

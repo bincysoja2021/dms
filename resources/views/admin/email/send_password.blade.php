@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -61,8 +60,11 @@ style="width: 100px;" /></center>
 <td colspan="2" style=" padding-left: 30px; padding-right: 15px;  font-family: 'Open Sans', sans-serif; font-size: 16px; font-weight: 400; line-height: 25px;">
 
 <h2 style=" font-family: 'Open Sans', sans-serif; font-size: 25px; color: #000000; text-align: center;  line-height: 34px; font-weight: 600; margin-bottom: 0px;">
-Dear  {{ $details['customer_details']['user_name'] }} <span>&#9995;</span><br>
-<p>This is your {{ $details['customer_details']['otp'] }} OTP for resetting the password.</p>
+Dear {{$details['user_name']}} <span>&#9995;</span><br>Your login credentials details are; 
+<h5>Username:{{$details['email']}} </h5><br>
+<h5>Password :{{$details['random_password']}}</h5><br>
+
+Login url: {{$details['host']}}
 
 </td>
 </tr>

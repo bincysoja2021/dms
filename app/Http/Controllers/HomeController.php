@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Models\User;
 use App\Models\Userlogs;
-
+use App\Models\Passwordhistroy;
 
 class HomeController extends Controller
 {
@@ -31,7 +31,16 @@ class HomeController extends Controller
         $session_role=session()->put('user_role', Auth::user()->user_type);
         User::where('id',Auth::user()->id)->update(['last_login_time'=>date("d-m-Y h:i:sa")]);
         Userlogs::create(['user_id'=>Auth::user()->id,'last_login_time'=>date("d-m-Y h:i:sa"),'login_ip'=>request()->ip()]);
-        return view('admin.dashboard');
+        $Passwordhistroy=Passwordhistroy::where('user_id', Auth::user()->id)->first();
+        $check_exists=Passwordhistroy::where('user_id', Auth::user()->id)->exists();
+        if( $check_exists== "true" && $Passwordhistroy->password_old == Null && $Passwordhistroy->user_type=="Manager")
+        {
+           return view('admin.manager.reset_password');
+        }
+        else
+        {
+            return view('admin.dashboard');
+        }
     }
 /******************************
    Date        : 27/02/2024
@@ -39,8 +48,8 @@ class HomeController extends Controller
 ******************************/
      public function logout()
     {
-        Auth::logout();
         session()->forget('user_role');
+        Auth::logout();
         return redirect('/')->with('message','User logout Successfully!');
 
     }
