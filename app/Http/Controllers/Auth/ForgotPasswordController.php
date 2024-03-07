@@ -84,17 +84,28 @@ class ForgotPasswordController extends Controller
     {
       return view('admin.password_reset.reset_password');
     }
+/*********************************************
+   Date        : 01/03/2024
+   Description :  check current password
+*********************************************/ 
+public function CheckCurrentPassword(Request $request)
+{
+    $input = $request->all();
+    $user = auth()->user();
+    if (!Hash::check($input['old_pswd'], $user->password)) {
+        //return redirect()->route('password-reset')->with('error','Old Password Mismatch!');
+        return response()->json([
+          'message'   => "Your Current Password Mismatch!",
+          'success'   => 1,
+        ]);
+    }
+}
 /*******************************************
    Date        : 01/03/2024
    Description : Password reset submission
 *******************************************/    
     public function reset_password_submit(Request $req)
     {
-      // $this->validate($req,
-      // [
-      //     'password'=>['required', 'min:6','regex:/[a-z]/','regex:/[A-Z]/','regex:/[0-9]/','regex:/[@$!%*#?&]/'],
-      //     'password-confirm'=>['required_with:password','same:password','min:6'],
-      // ]);
       $validatedData = $req->validate([
           'password' => 'required|min:6|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/',
           'password-confirm' => 'required_with:password|same:password|min:6'
@@ -115,11 +126,6 @@ class ForgotPasswordController extends Controller
 *******************************************/    
     public function manager_reset_password_submit(Request $req)
     {
-      // $this->validate($req,
-      // [
-      //     'password'=>['required', 'min:6','regex:/[a-z]/','regex:/[A-Z]/','regex:/[0-9]/','regex:/[@$!%*#?&]/'],
-      //     'password-confirm'=>['required_with:password','same:password','min:6'],
-      // ]);
       $validatedData = $req->validate([
           'password' => 'required|min:6|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/',
           'password-confirm' => 'required_with:password|same:password|min:6'
@@ -127,10 +133,11 @@ class ForgotPasswordController extends Controller
           'password.required' => 'Please enter the atleast one Capital letter,small letter,numbers and special letters.',
           'password-confirm.required' => 'Please enter the same password.',
       ]);
+
+
       User::where('id',Auth::user()->id)->update(['password'=>Hash::make($req->password)]);
       $Passwordhistroy=Passwordhistroy::where('user_id',Auth::user()->id)->first();
       Passwordhistroy::where('user_id',Auth::user()->id)->update(['password_new'=>$req->password,'password_old'=>$Passwordhistroy->password_new]);
-      // Session::flash('message', ['text'=>'Succssfully updated the password!....','type'=>'success']);
       session()->forget('user_role');
       Auth::logout();
       return redirect('/')->with('message','Succssfully updated the password!');
