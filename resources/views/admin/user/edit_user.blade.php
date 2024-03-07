@@ -157,7 +157,7 @@ $(document).ready(function(e){
     if (isConfirm){
        $.ajax({
               type:'GET',
-              url:'{{url("/delete_users")}}/' +id,
+              url:'{{url("/user_deactivate")}}/' +id,
               data:{
                   "_token": "{{ csrf_token() }}",
               },

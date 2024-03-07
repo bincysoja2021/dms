@@ -40,7 +40,7 @@ class Usercontoller extends Controller
                 ->addColumn('action', function($row){
                     $actionBtn = '<a href="' . route('view.users', $row->id) .'"><i class="fa fa-eye"  aria-hidden="true"></i></a>
                                   <a href="' . route('edit.users', $row->id) .'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                  <a href="' . route('user_deactivate', $row->id) .'"  onclick="delete_user_modal('.$row->id.')" ><i class="fa fa-trash" aria-hidden="true"></i></a>';
+                                  <a   onclick="delete_user_modal('.$row->id.')" ><i class="fa fa-trash" aria-hidden="true"></i></a>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])

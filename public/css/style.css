@@ -378,26 +378,37 @@ body {
 }
 
 .login-cover {
-  width: 350px;
-  display: block;
-  margin: 0 auto;
+  min-width: 550px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
   margin-top: 2%;
+  width: 100%;
+  flex-direction: column;
+  gap: 10px;
 }
-
+.form-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 10px;
+    /*flex-wrap: wrap;*/
+}
 .login-logo {
   display: block;
   margin: 0 auto;
 }
 
 .login-box {
-  margin: 30px 0;
-  width: 100%;
+  /*margin: 30px 0;*/
+  /*width: 100%;*/
   background: #F5F5F5;
   border: #ddd solid 1px;
   border-radius: 7px;  
 }
 
-.login-box h3 {
+.login-box h3, #message h3 {
   font-size: 20px;
   font-weight: 500;
   padding: 20px;
