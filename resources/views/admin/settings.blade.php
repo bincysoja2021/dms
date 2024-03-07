@@ -31,7 +31,7 @@
         @if(Auth::user()->user_type=="Manager")
           <tr>
             <td>Password reset</td>
-            <td>: <a href="">click here to reset password</a></td>
+            <td>: <a href="{{ url('reset_user_password') }}">click here to reset password</a></td>
           </tr>
         @endif
         <tr>
