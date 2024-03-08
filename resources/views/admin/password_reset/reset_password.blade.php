@@ -38,6 +38,7 @@
 
 <div class="login-cover">
   <img src="{{ asset ('images/logo.svg') }}" class="login-logo">
+  <div class="form-wrap">
   <div class="login-box">
     <h3>DMS - Reset Password</h3>
     <div class="login-in">
@@ -46,7 +47,7 @@
         
         <div class="reset_password">
           <label>Enter new password</label>
-          <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter your username" name="password" autocomplete="off" required id="password">
+          <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter your username" name="password" autocomplete="off" required id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters">
           
           <span toggle="#password_show" class="fa fa-fw fa-eye field_icon toggle_reset_password eye_show"></span>
           @error('password')
@@ -56,16 +57,27 @@
           @enderror
         </div>
           <label>Re-enter new password</label>
-          <input type="password" class="form-control @error('password-confirm') is-invalid @enderror" placeholder="Enter your password" name="password-confirm" autocomplete="off" required>
+          <input type="password" class="form-control @error('password-confirm') is-invalid @enderror" placeholder="Enter your password" name="password-confirm" autocomplete="off" required id="password-confirm" title="Re-enter Password Same as the Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
           @error('password-confirm')
             <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
             </span>
           @enderror
-        <button class="btn btn-primary btn-login">Reset</button> 
+        <input type="submit" class="btn btn-primary btn-login"> 
       </form>     
     </div>
   </div>
+  <!--- add validation ---->
+      <div id="message">
+          <h3>Password must contain the following:</h3>
+          <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+          <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+          <p id="number" class="invalid">A <b>number</b></p>
+          <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+          <p id="repswd" class="invalid">Re-enter Password is valid</b>
+          </p>
+      </div>
+      </div>
   <h6>
     <i class="fa fa-copyright" aria-hidden="true"></i> 2024-25 GTN Enterprises.    
   </h6>
@@ -91,5 +103,170 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-slim.min.js"><\/script>')</script>
 <script src="{{ asset ('js/bootstrap.min.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+  @if(session()->has('message'))
+      swal({
+  
+          title: "Success!",
+  
+          text: "{{ session()->get('message') }}",
+  
+          icon: "success",
+  
+      });
+  @endif
+  
+  @if(session()->has('error'))
+      swal({
+  
+          title: "Error!",
+  
+          text: "Old Password Mismatch!",
+  
+          icon: "error",
+  
+      });
+  @endif
+  
+  function CheckOldPassword(){
+    var x = document.getElementById("old_pswd").value;
+    $.ajax({
+      type: "GET",
+      headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') },
+      url: '/check-current-password',
+      data: { "_token": "{{ csrf_token() }}",
+        old_pswd: x,
+      },
+      success: function(newData) {
+        if(newData.success == 1){  
+          swal({
+  
+            title: "Error!",
+  
+            text: newData.message,
+  
+            icon: "error",
+  
+          });
+          document.getElementById("old_pswd").value = null;
+        } 
+      },
+              
+    });
+  }
+  
+  var myInput = document.getElementById("password");
+  var reInput = document.getElementById("password-confirm");
+  var letter = document.getElementById("letter");
+  var capital = document.getElementById("capital");
+  var number = document.getElementById("number");
+  var length = document.getElementById("length");
+  
+  myInput.onfocus = function() {
+    document.getElementById("message").style.display = "block";
+  }
+  
+  myInput.onkeyup = function() {
+    // Validate lowercase letters
+    var lowerCaseLetters = /[a-z]/g;
+    if(myInput.value.match(lowerCaseLetters)) {  
+      letter.classList.remove("invalid");
+      letter.classList.add("valid");
+    } else {
+      letter.classList.remove("valid");
+      letter.classList.add("invalid");
+    }
+    
+    // Validate capital letters
+    var upperCaseLetters = /[A-Z]/g;
+    if(myInput.value.match(upperCaseLetters)) {  
+      capital.classList.remove("invalid");
+      capital.classList.add("valid");
+    } else {
+      capital.classList.remove("valid");
+      capital.classList.add("invalid");
+    }
+  
+    // Validate numbers
+    var numbers = /[0-9]/g;
+    if(myInput.value.match(numbers)) {  
+      number.classList.remove("invalid");
+      number.classList.add("valid");
+    } else {
+      number.classList.remove("valid");
+      number.classList.add("invalid");
+    }
+    
+    // Validate length
+    if(myInput.value.length >= 8) {
+      length.classList.remove("invalid");
+      length.classList.add("valid");
+    } else {
+      length.classList.remove("valid");
+      length.classList.add("invalid");
+    }
+    // Validate match
+        if(myInput.value  == reInput.value) {
+          repswd.classList.remove("invalid");
+          repswd.classList.add("valid");
+        } else {
+          repswd.classList.remove("valid");
+          repswd.classList.add("invalid");
+        }
+    
+  }
+  
+  reInput.onkeyup = function() {
+      // Validate match
+        if(myInput.value  == reInput.value) {
+          repswd.classList.remove("invalid");
+          repswd.classList.add("valid");
+        } else {
+          repswd.classList.remove("valid");
+          repswd.classList.add("invalid");
+        }
+  }
+</script>
+<style type="text/css">
+    input[type=submit] {
+      background-color: #04AA6D;
+      color: white;
+    }
+    #message {
+      display:none;
+      background: #f1f1f1;
+      color: #000;
+      position: relative;
+      padding: 20px;
+      margin-left: 10px;
+    }
+    
+    #message p {
+      padding: 10px;
+      font-size: 14px;
+    }
+    
+    .valid {
+      color: green;
+    }
+    
+    .valid:before {
+      position: relative;
+      left: -10px;
+      content: "✔";
+    }
+    
+    .invalid {
+      color: red;
+    }
+    
+    .invalid:before {
+      position: relative;
+      left: -10px;
+      content: "✖";
+    }
+</style>
+</style>
 </body>
 </html>
