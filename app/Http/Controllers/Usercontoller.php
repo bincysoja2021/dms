@@ -27,6 +27,15 @@ class Usercontoller extends Controller
     {
       return view('admin.view_user');
     }
+/****************************************
+   Date        : 07/03/2024
+   Description :  reset user password
+****************************************/
+    public function reset_user_password()
+    {
+      return view('admin.manager.reset_password');
+    }
+
 /**********************************
    Date        : 05/03/2024
    Description :  list for users
@@ -194,7 +203,6 @@ class Usercontoller extends Controller
         'subject' => "Your registerd  Password !",
       ];
       $response=send_otp_to_email($req->email,$details,$blade="admin.email.send_password",$subject="Generated password",$user_details->user_name);
-      // dd($response);
       Passwordhistroy::create([
             'added_by'=>Auth::user()->id,
             'user_id'=>$userData->id,
@@ -222,6 +230,26 @@ class Usercontoller extends Controller
     {
         $msg=User::where('id',$id)->delete();
         return redirect()->route('all_users')->with('message','User deleted Successfully!');
-    }    
+    }  
+/*******************************************
+   Date        : 07/03/2024
+   Description : Manager Password reset submission
+*******************************************/    
+    public function manager_reset_password_submit(Request $req)
+    {
+      $validatedData = $req->validate([
+          'password' => 'required|min:6|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/',
+          'password-confirm' => 'required_with:password|same:password|min:6'
+      ], [
+          'password.required' => 'Please enter the atleast one Capital letter,small letter,numbers and special letters.',
+          'password-confirm.required' => 'Please enter the same password.',
+      ]);
+      User::where('id',Auth::user()->id)->update(['password'=>Hash::make($req->password)]);
+      $Passwordhistroy=Passwordhistroy::where('user_id',Auth::user()->id)->first();
+      Passwordhistroy::where('user_id',Auth::user()->id)->update(['password_new'=>$req->password,'password_old'=>$Passwordhistroy->password_new]);
+      session()->forget('user_role');
+      Auth::logout();
+      return redirect('/')->with('message','Succssfully updated the password!');
+    }        
 
 }
