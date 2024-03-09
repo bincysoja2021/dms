@@ -24,7 +24,7 @@
 <body>
 <div class="login-cover">
   <img src="{{ asset ('images/logo.svg') }}" class="login-logo">
-  <div class="login-box">
+  <div class="login-box" style="width: 22%">
     <h3>DMS Login-Forgot password?</h3>
     <div class="login-in">
       <p>

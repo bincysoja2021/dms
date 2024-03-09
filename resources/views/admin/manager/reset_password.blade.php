@@ -41,37 +41,37 @@
 		<div class="login-cover">
 				<img src="{{ asset ('images/logo.svg') }}" class="login-logo">
 				<div class="form-wrap">
-					<div class="login-box">
-							<h3>DMS - Manager Reset Password</h3>
-							<div class="login-in">
-									<form method="POST" action="{{ route('manager_reset_password_submit') }}">
-											@csrf
+							<div class="login-box">
+									<h3>DMS - Manager Reset Password</h3>
+									<div class="login-in">
+											<form method="POST" action="{{ route('manager_reset_password_submit') }}">
+													@csrf
 
-											<div class="reset_password">
-													<label>Enter Old password</label>
-													<input type="password" class="form-control" placeholder="Enter your username" id="old_pswd" name="old_pswd" onchange="CheckOldPassword()">
+													<div class="reset_password">
+															<label>Enter Old password</label>
+															<input type="password" class="form-control" placeholder="Enter your username" id="old_pswd" name="old_pswd" onchange="CheckOldPassword()">
 
-													<label>Enter new password</label>
-													<input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter your username" id="password" name="password" autocomplete="off" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters"> @error('password')
+															<label>Enter new password</label>
+															<input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter your username" id="password" name="password" autocomplete="off" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters"> @error('password')
+															<span class="invalid-feedback" role="alert">
+															<strong>{{ $message }}</strong>
+															</span> @enderror
+
+															<span toggle="#password_show" class="fa fa-fw fa-eye field_icon toggle_reset_password eye_show"></span>
+
+													</div>
+													<label>Re-enter new password</label>
+													<input type="password" class="form-control @error('password-confirm') is-invalid @enderror" placeholder="Enter your password" id="password-confirm" name="password-confirm" autocomplete="off" required title="Re-enter Password Same as the Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+													required> @error('password-confirm')
 													<span class="invalid-feedback" role="alert">
-													<strong>{{ $message }}</strong>
-													</span> @enderror
+									<strong>{{ $message }}</strong>
+									</span> @enderror
 
-													<span toggle="#password_show" class="fa fa-fw fa-eye field_icon toggle_reset_password eye_show"></span>
-
-											</div>
-											<label>Re-enter new password</label>
-											<input type="password" class="form-control @error('password-confirm') is-invalid @enderror" placeholder="Enter your password" id="password-confirm" name="password-confirm" autocomplete="off" required title="Re-enter Password Same as the Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
-											required> @error('password-confirm')
-											<span class="invalid-feedback" role="alert">
-							<strong>{{ $message }}</strong>
-							</span> @enderror
-
-											<!-- <button class="btn btn-primary btn-login">Reset</button>  -->
-											<input type="submit" name="" class="btn btn-primary btn-login" value="Reset">
-									</form>
+													<!-- <button class="btn btn-primary btn-login">Reset</button>  -->
+													<input type="submit" name="" class="btn btn-primary btn-login" value="Reset">
+											</form>
+									</div>
 							</div>
-					</div>
 					<!--- add validation ---->
 							<div id="message">
 									<h3>Password must contain the following:</h3>

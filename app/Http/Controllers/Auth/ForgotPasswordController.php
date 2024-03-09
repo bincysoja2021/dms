@@ -59,14 +59,6 @@ class ForgotPasswordController extends Controller
     {
       return view('admin.password_reset.forgot_password');
     }
-/****************************************
-   Date        : 07/03/2024
-   Description :  reset user password
-****************************************/
-    public function reset_user_password()
-    {
-      return view('admin.manager.reset_password');
-    }
 
 /*****************************************
    Date        : 01/03/2024
@@ -93,7 +85,6 @@ public function CheckCurrentPassword(Request $request)
     $input = $request->all();
     $user = auth()->user();
     if (!Hash::check($input['old_pswd'], $user->password)) {
-        //return redirect()->route('password-reset')->with('error','Old Password Mismatch!');
         return response()->json([
           'message'   => "Your Current Password Mismatch!",
           'success'   => 1,
@@ -115,43 +106,24 @@ public function CheckCurrentPassword(Request $request)
       ]);
       $id = Cookie::get('user_id');
       User::where('id',$id)->update(['password'=>Hash::make($req->password)]);
+      $Passwordhistroy=Passwordhistroy::where('user_id',$id)->first();
+      Passwordhistroy::where('user_id',$id)->update(['password_new'=>$req->password,'password_old'=>$Passwordhistroy->password_new]);
       Cookie::queue(Cookie::forget('user_id'));
-      Session::flash('message', ['text'=>'Succssfully updated the password!....','type'=>'success']);
-      return redirect('/');
+      // Session::flash('message', ['text'=>'Succssfully updated the password!....','type'=>'success']);
+      return redirect('/')->with('message','Succssfully updated the password!');;
     } 
 
-/*******************************************
-   Date        : 07/03/2024
-   Description : Manager Password reset submission
-*******************************************/    
-    public function manager_reset_password_submit(Request $req)
-    {
-      $validatedData = $req->validate([
-          'password' => 'required|min:6|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/',
-          'password-confirm' => 'required_with:password|same:password|min:6'
-      ], [
-          'password.required' => 'Please enter the atleast one Capital letter,small letter,numbers and special letters.',
-          'password-confirm.required' => 'Please enter the same password.',
-      ]);
-
-
-      User::where('id',Auth::user()->id)->update(['password'=>Hash::make($req->password)]);
-      $Passwordhistroy=Passwordhistroy::where('user_id',Auth::user()->id)->first();
-      Passwordhistroy::where('user_id',Auth::user()->id)->update(['password_new'=>$req->password,'password_old'=>$Passwordhistroy->password_new]);
-      session()->forget('user_role');
-      Auth::logout();
-      return redirect('/')->with('message','Succssfully updated the password!');
-    }     
+   
 /**********************************
    Date        : 01/03/2024
    Description :  Forgot password
 **********************************/     
     public function submit(Request $req)
     {
-      $this->validate($req,
-      [
-          'email'=>['required', 'email', 'max:255','email:rfc,dns'],
-      ]);
+      // $this->validate($req,
+      // [
+      //     'email'=>['required', 'email', 'max:255','email:rfc,dns'],
+      // ]);
       $check_exist=User::where('email',$req->email)->exists();
       if($check_exist==true)
       {

@@ -59,11 +59,11 @@ Auth::routes();
     Route::post('/otp_submit', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'otp_submit'])->name('otp_submit');
     Route::get('/reset_password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'reset_password'])->name('reset_password');
     Route::post('/reset_password_submit', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'reset_password_submit'])->name('reset_password_submit');
-    Route::post('/manager_reset_password_submit', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'manager_reset_password_submit'])->name('manager_reset_password_submit');
-    Route::get('/reset_user_password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'reset_user_password'])->name('reset_user_password');
+    Route::post('/manager_reset_password_submit', [App\Http\Controllers\Usercontoller::class, 'manager_reset_password_submit'])->name('manager_reset_password_submit');
+    Route::get('/reset_user_password', [App\Http\Controllers\Usercontoller::class, 'reset_user_password'])->name('reset_user_password');
      Route::get('/check-current-password',[App\Http\Controllers\Auth\ForgotPasswordController::class,'CheckCurrentPassword'])->name('check-current-password');
 
-###############################################################
+############################################################################################
 
 ################################## User details##############################################
 
