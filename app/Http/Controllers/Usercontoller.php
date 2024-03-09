@@ -159,7 +159,6 @@ class Usercontoller extends Controller
 **********************************/      
      public function edit_users($id)
     {
-         // print_r(Session::get('user_role'));
       $data=User::where('id',$id)->first();
       return view('admin.user.edit_user',compact('data'));
     }

@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-##############################  Dashboard and profile details###################################
+##############################  Dashboard and profile details############################
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/user_logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout');
@@ -43,7 +43,7 @@ Auth::routes();
     Route::get('/all_invoices', [App\Http\Controllers\Documentcontoller::class, 'all_invoices'])->name('all_invoices');
     Route::get('/view_invoice', [App\Http\Controllers\Documentcontoller::class, 'view_invoice'])->name('view_invoice');
     Route::get('/edit_invoice', [App\Http\Controllers\Documentcontoller::class, 'edit_invoice'])->name('edit_invoice');
-#################################################################################################
+#############################################################################################
 
 ############################  Schedule document details####################################
     Route::get('/schedule_document', [App\Http\Controllers\Documentcontoller::class, 'schedule_document'])->name('schedule_document');
