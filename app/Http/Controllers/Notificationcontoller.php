@@ -39,6 +39,16 @@ class Notificationcontoller extends Controller
         $msg=Notification::where('id',$id)->delete();
         return redirect()->route('notification')->with('message','Notification deleted Successfully!');
     }
+/***************************************
+   Date        : 04/03/2024
+   Description :  delete notification
+***************************************/    
+    public function delete_notifications(Request $request)
+    {
+        $ids = $request->input('ids');
+        Notification::whereIn('id', $ids)->delete();
+        return response()->json(['success' => true]);
+    }
 /*****************************************
    Date        : 04/03/2024
    Description :  Listing notification
@@ -57,7 +67,11 @@ class Notificationcontoller extends Controller
                     }
                     return $actionBtn;
                 })
-                ->rawColumns(['action'])
+                ->addColumn('checkbox', function ($item) {
+                $actionBtn ='<input type="checkbox" name="item_checkbox[]" value="' . $item->id . '">';
+                return $actionBtn;
+                })
+                ->rawColumns(['checkbox','action'])
                 ->make(true);
         }
     }

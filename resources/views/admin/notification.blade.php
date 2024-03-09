@@ -28,17 +28,21 @@
       <div class="dash-table-all"> 
         <table class="table table-striped notification-datatable">
           <thead>
-          <tr>            
-            <th>Sl.</th>
-            <th>Date</th>
-            <th>Message</th>
-            <th>Action</th>
+          <tr>
+            <th width="20%"><input type="checkbox" id="select-all">&nbsp&nbsp&nbsp
+              @if(auth()->user()->user_type=="Super admin")<button class="btn btn-primary" id="delete-selected">Delete</button>@endif
+            </th>          
+            <th width="20%">Sl.</th>
+            <th width="20%">Date</th>
+            <th width="20%">Message</th>
+            <th width="20%">Action</th>
           </tr>
           </thead>
           <tbody>
 
           </tbody>
         </table>
+
         <!-- <div class="pagination-block">
           <ul class="pagination pagination-sm justify-content-end">
             <li class="page-item"></li>
@@ -82,6 +86,7 @@
         serverSide: true,
         ajax: "{{ route('notification.list') }}",
         columns: [
+            { data: 'checkbox', name: 'checkbox', orderable: false, searchable: false },
             {data: 'id', name: 'id'},
             {data: 'date', name: 'date'},
             {data: 'message', name: 'message'},
@@ -95,6 +100,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
 
 <script type="text/javascript">
+   $('#select-all').on('change', function() {
+        $('input[type="checkbox"]').prop('checked', $(this).prop('checked'));
+    });
   function delete_notification_modal(id)
   {
     var id = id; 
@@ -131,5 +139,39 @@
     }
     });
   }
+
+
+
+
+
+  $('#delete-selected').on('click', function() {
+        var ids = $('input[name="item_checkbox[]"]:checked').map(function() {
+            return $(this).val();
+        }).get();
+
+        $.ajax({
+            url: '{{url("/delete_notifications")}}',
+            method: 'POST',
+            data: { 
+                    ids: ids,
+                    _token: "{{ csrf_token() }}",
+                  },
+            success: function(response) {
+              swal({
+
+              title: "Success!",
+
+              text: "Selected notification has been deleted!..",
+
+              icon: "success",
+
+              });
+              window.location.href="{{url("notification")}}";
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
 </script>
 @include("admin.include.footer")

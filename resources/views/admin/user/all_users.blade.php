@@ -28,13 +28,16 @@
         <table class="table table-striped user-datatable">
           <thead>
             <tr>
-              <th>Sl.</th>
-              <th>Username</th>
-              <th>Email ID</th>
-              <th>User Type</th>            
-              <th>Last Login</th>
-              <th>Status</th>
-              <th>Action</th>
+              <th width="20%"><input type="checkbox" id="select-all">&nbsp&nbsp&nbsp
+              @if(auth()->user()->user_type=="Super admin")<button class="btn btn-primary" id="delete-selected">Delete</button>@endif
+              </th>   
+              <th width="10%">Sl.</th>
+              <th width="10%">Username</th>
+              <th width="10%">Email ID</th>
+              <th width="10%">User Type</th>            
+              <th width="10%">Last Login</th>
+              <th width="10%">Status</th>
+              <th width="20%">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -87,6 +90,10 @@
   @endif
   </script>
 <script type="text/javascript">
+ $('#select-all').on('change', function() {
+        $('input[type="checkbox"]').prop('checked', $(this).prop('checked'));
+    });
+     
   $(function () {
     var table = $('.user-datatable').DataTable
     ({
@@ -94,6 +101,7 @@
         serverSide: true,
         ajax: "{{ route('users.list') }}",
         columns: [
+            { data: 'checkbox', name: 'checkbox', orderable: false, searchable: false },
             {data: 'id', name: 'id'},
             {data: 'full_name', name: 'full_name'},
             {data: 'email', name: 'email'},
@@ -157,5 +165,34 @@
     }
     });
   }
+  $('#delete-selected').on('click', function() {
+        var ids = $('input[name="item_checkbox[]"]:checked').map(function() {
+            return $(this).val();
+        }).get();
+
+        $.ajax({
+            url: '{{url("/delete_multi_users")}}',
+            method: 'POST',
+            data: { 
+                    ids: ids,
+                    _token: "{{ csrf_token() }}",
+                  },
+            success: function(response) {
+              swal({
+
+              title: "Success!",
+
+              text: "Selected users has been deleted!..",
+
+              icon: "success",
+
+              });
+              window.location.href="{{url("all_users")}}";
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
 </script>
 @include("admin.include.footer")

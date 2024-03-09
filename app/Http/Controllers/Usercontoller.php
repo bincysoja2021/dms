@@ -43,7 +43,11 @@ class Usercontoller extends Controller
                                   <a   onclick="delete_user_modal('.$row->id.')" ><i class="fa fa-trash" aria-hidden="true"></i></a>';
                     return $actionBtn;
                 })
-                ->rawColumns(['action'])
+                 ->addColumn('checkbox', function ($item) {
+                $actionBtn ='<input type="checkbox" name="item_checkbox[]" value="' . $item->id . '">';
+                return $actionBtn;
+                })
+                ->rawColumns(['checkbox','action'])
                 ->make(true);
         }
     }
@@ -223,5 +227,14 @@ class Usercontoller extends Controller
         $msg=User::where('id',$id)->delete();
         return redirect()->route('all_users')->with('message','User deleted Successfully!');
     }    
-
+/***************************************
+   Date        : 04/03/2024
+   Description :  delete users
+***************************************/    
+    public function delete_multi_users(Request $request)
+    {
+        $ids = $request->input('ids');
+        User::whereIn('id', $ids)->delete();
+        return response()->json(['success' => true]);
+    }
 }
