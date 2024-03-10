@@ -41,7 +41,7 @@
   <div class="login-box">
     <h3>DMS Login</h3>
     <div class="login-in">
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ url('login') }}">
           @csrf
           <label>Email</label>
           <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Enter your email" name="email" required autocomplete="off">
@@ -95,11 +95,11 @@
   @if(session()->has('message'))
       swal({
 
-          title: "Success!",
+          title: "Warning!",
 
           text: "{{ session()->get('message') }}",
 
-          icon: "success",
+          icon: "warning",
 
       });
   @endif

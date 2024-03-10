@@ -12,16 +12,15 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('auth.login');
-});
-
-Auth::routes();
+##############################  User login logout details############################
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'login_form'])->name('form_login');
+    Auth::routes();
+    Route::post('/login', [App\Http\Controllers\LogincheckController::class, 'login'])->name('login');
+     Route::get('/user_logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout');
+###########################################################################################
+   
 ##############################  Dashboard and profile details############################
-
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/user_logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout');
     Route::get('/settings', [App\Http\Controllers\Usercontoller::class, 'settings'])->name('settings');
     Route::get('/edit_profile/{id}', [App\Http\Controllers\Usercontoller::class, 'edit_profile'])->name('edit_profile');
     Route::post('/update_profile', [App\Http\Controllers\Usercontoller::class, 'update_profile'])->name('update_profile');

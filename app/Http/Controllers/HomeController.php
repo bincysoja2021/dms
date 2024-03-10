@@ -20,6 +20,14 @@ class HomeController extends Controller
         date_default_timezone_set("Asia/Kolkata");
         $this->middleware('auth');
     }
+/**********************************
+   Date        : 01/03/2024
+   Description :  login form
+**********************************/    
+     public function login_form()
+    {
+        return view('auth.login');
+    }
 
     /**
      * Show the application dashboard.
@@ -50,7 +58,7 @@ class HomeController extends Controller
     {
         session()->forget('user_role');
         Auth::logout();
-        return redirect('/')->with('message','User logout Successfully!');
+        return redirect()->route('form_login')->with('message','User logout Successfully!');
 
     }
 
