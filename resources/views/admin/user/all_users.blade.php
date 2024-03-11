@@ -159,7 +159,10 @@
               icon: "success",
 
               });
-              window.location.href="{{url("all_users")}}";
+              setTimeout(function()
+              {
+                window.location.href="{{url("all_users")}}";
+              }, 2000);
               }
            });
     }
@@ -187,7 +190,10 @@
               icon: "success",
 
               });
-              window.location.href="{{url("all_users")}}";
+             setTimeout(function()
+              {
+                window.location.href="{{url("all_users")}}";
+              }, 2000);
             },
             error: function(xhr, status, error) {
                 console.error(xhr.responseText);

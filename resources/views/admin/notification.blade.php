@@ -133,7 +133,10 @@
               icon: "success",
 
               });
-              window.location.href="{{url("notification")}}";
+              setTimeout(function()
+              {
+                window.location.href="{{url("notification")}}";
+              }, 2000);
               }
            });
     }
@@ -166,7 +169,10 @@
               icon: "success",
 
               });
+            setTimeout(function()
+            {
               window.location.href="{{url("notification")}}";
+            }, 2000);
             },
             error: function(xhr, status, error) {
                 console.error(xhr.responseText);
