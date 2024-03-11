@@ -120,9 +120,17 @@ public function CheckCurrentPassword(Request $request)
 **********************************/     
     public function submit(Request $req)
     {
-      $this->validate($req,
-      [
-          'email'=>['required', 'email', 'max:255','email:rfc,dns'],
+      // $this->validate($req,
+      // [
+      //     'email'=>['required', 'email', 'max:255','email:rfc,dns'],
+      //     'captcha' => ['required','captcha']
+      // ]);
+      $validatedData = $req->validate([
+          'email' => 'required|email|email:rfc,dns|max:255',
+          'captcha'=>'required|captcha'
+      ], [
+          'email.required' => 'Please enter the valid email.',
+          'captcha.required' => 'Please enter the proper captcha.',
       ]);
       $check_exist=User::where('email',$req->email)->exists();
       if($check_exist==true)
@@ -156,5 +164,11 @@ public function CheckCurrentPassword(Request $request)
           return view('admin.password_reset.forgot_password');
       }
       
+    }
+
+
+    public function reloadCaptcha()
+    {
+        return response()->json(['captcha'=> captcha_img()]);
     }
 }

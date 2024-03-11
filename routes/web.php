@@ -62,6 +62,11 @@ use Illuminate\Support\Facades\Route;
     Route::get('/reset_user_password', [App\Http\Controllers\Usercontoller::class, 'reset_user_password'])->name('reset_user_password');
      Route::get('/check-current-password',[App\Http\Controllers\Auth\ForgotPasswordController::class,'CheckCurrentPassword'])->name('check-current-password');
 
+
+     //captcha
+     Route::get('/reload-captcha',[App\Http\Controllers\Auth\ForgotPasswordController::class,'reloadCaptcha'])->name('reloadCaptcha');
+
+
 ############################################################################################
 
 ################################## User details##############################################

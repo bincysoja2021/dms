@@ -45,6 +45,22 @@
             <strong>{{ $message }}</strong>
             </span>
           @enderror
+           <div class="form-group mt-4 mb-4">
+              <div class="captcha">
+                <span>{!! captcha_img() !!}</span>
+                <button type="button" class="btn btn-danger" class="reload" id="reload">
+                        &#x21bb;
+                </button>
+              </div>
+            </div>
+            <div class="form-group mb-4">
+              <input id="captcha" type="text" class="form-control @error('captcha') is-invalid @enderror" placeholder="Enter Captcha" name="captcha" required>
+              @error('captcha')
+                <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+            </div>
           <button type="submit" class="btn btn-primary btn-login">Submit</button>
       </form>        
     </div>
@@ -67,5 +83,19 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-slim.min.js"><\/script>')</script>
 <script src="{{ asset ('js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $('#reload').click(function () {
+        $.ajax({
+            type: 'GET',
+            url: 'reload-captcha',
+            success: function (data) {
+                $(".captcha span").html(data.captcha);
+            }
+        });
+    });
+</script>
+
 </body>
 </html>

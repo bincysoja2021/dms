@@ -169,6 +169,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Mews\Captcha\CaptchaServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -184,7 +185,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
          'DataTables' => Yajra\DataTables\Facades\DataTables::class,
-        // 'Example' => App\Facades\Example::class,
+         'Captcha' => Mews\Captcha\Facades\Captcha::class,
     ])->toArray(),
 
 ];
