@@ -120,10 +120,10 @@ public function CheckCurrentPassword(Request $request)
 **********************************/     
     public function submit(Request $req)
     {
-      // $this->validate($req,
-      // [
-      //     'email'=>['required', 'email', 'max:255','email:rfc,dns'],
-      // ]);
+      $this->validate($req,
+      [
+          'email'=>['required', 'email', 'max:255','email:rfc,dns'],
+      ]);
       $check_exist=User::where('email',$req->email)->exists();
       if($check_exist==true)
       {

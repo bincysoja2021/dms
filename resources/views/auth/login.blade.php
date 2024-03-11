@@ -92,14 +92,14 @@
 <script src="{{ asset ('js/bootstrap.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script> -->
-<script type="text/javascript">
   @if(session()->has('message'))
+<script type="text/javascript">
       Swal.fire({
       icon: "error",
       title: "Warning",
       text: "{{ session()->get('message') }}",
       });
-  @endif
   </script>
+  @endif
 </body>
 </html>
