@@ -90,17 +90,14 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-slim.min.js"><\/script>')</script>
 <script src="{{ asset ('js/bootstrap.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script> -->
 <script type="text/javascript">
   @if(session()->has('message'))
-      swal({
-
-          title: "Warning!",
-
-          text: "{{ session()->get('message') }}",
-
-          icon: "warning",
-
+      Swal.fire({
+      icon: "error",
+      title: "Warning",
+      text: "{{ session()->get('message') }}",
       });
   @endif
   </script>

@@ -13,10 +13,10 @@ use Auth;
 
 class LogincheckController extends Controller
 {
-/**********************************
+/*****************************************
    Date        : 01/03/2024
-   Description :  Login Submit
-**********************************/
+   Description :  Login for Submission
+******************************************/
     public function login(Request $req)
     {
         $validatedData = $req->validate([

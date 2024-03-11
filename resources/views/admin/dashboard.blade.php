@@ -51,7 +51,7 @@
       <div class="dashbox-in">
         <div class="dashbox"> 
           <img src="{{ asset ('images/notification-icon.svg') }}">
-          <h4>40</h4>
+          <h4>{{$notification}}</h4>
         </div>
         <h3>Notifications</h3>
       </div>

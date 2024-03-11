@@ -7,6 +7,7 @@ use Auth;
 use App\Models\User;
 use App\Models\Userlogs;
 use App\Models\Passwordhistroy;
+use App\Models\Notification;
 
 class HomeController extends Controller
 {
@@ -47,7 +48,8 @@ class HomeController extends Controller
         }
         else
         {
-            return view('admin.dashboard');
+            $notification=Notification::count();
+            return view('admin.dashboard',compact('notification'));
         }
     }
 /******************************
