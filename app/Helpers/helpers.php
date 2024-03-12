@@ -5,6 +5,8 @@
 */
 
 use Illuminate\Support\Facades\Mail;
+use App\Models\Notification;
+
 if(!function_exists('send_otp_to_email'))
 {
     function send_otp_to_email($email_id,$details,$blade,$subject,$name)
@@ -52,6 +54,33 @@ if(!function_exists('send_otp_to_email'))
 
             return $response;
             }
+        }
+        catch (\Exception $e)
+        {
+           $msg=$e->getMessage();
+           return response()->json(['message'=>$msg,'success' => 'error','data'=>[],'statusCode'=>401], 401);
+        }
+
+    }
+}
+
+
+
+if(!function_exists('notification_data'))
+{
+    function notification_data($id,$user_type,$date,$message,$message_title,$status_val)
+    {
+        try
+        {
+            Notification::Create([
+                'user_id'=>$id,
+                'user_type'=>$user_type,
+                'date'=>$date,
+                'message_title'=>$message_title,
+                'message'=>$message,
+                'status'=>$status_val
+            ]);
+           
         }
         catch (\Exception $e)
         {

@@ -42,6 +42,10 @@ use Illuminate\Support\Facades\Route;
     Route::get('/all_invoices', [App\Http\Controllers\Documentcontoller::class, 'all_invoices'])->name('all_invoices');
     Route::get('/view_invoice', [App\Http\Controllers\Documentcontoller::class, 'view_invoice'])->name('view_invoice');
     Route::get('/edit_invoice', [App\Http\Controllers\Documentcontoller::class, 'edit_invoice'])->name('edit_invoice');
+
+    Route::post('/submit_docs', [App\Http\Controllers\Documentcontoller::class, 'submit'])->name('submit_docs');
+    Route::post('/failed_docs', [App\Http\Controllers\Documentcontoller::class, 'failed_docs_submission'])->name('failed_docs');
+
 #############################################################################################
 
 ############################  Schedule document details####################################
