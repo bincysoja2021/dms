@@ -27,7 +27,7 @@
           <td>User Email ID<span style="color: red;">*</span></td>
           <td width="10">:</td>
           <td>
-            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="" required autocomplete="off">
+            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="" required autocomplete="off" value="{{ old('email') }}">
             @error('email')
             <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
@@ -51,7 +51,7 @@
           <td>Username<span style="color: red;">*</span></td>
           <td width="10">:</td>
           <td>
-            <input type="text" class="form-control @error('user_name') is-invalid @enderror" name="user_name" value="" required autocomplete="off">
+            <input type="text" class="form-control @error('user_name') is-invalid @enderror" name="user_name" value="" required autocomplete="off" value="{{ old('user_name') }}">
             @error('user_name')
             <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>

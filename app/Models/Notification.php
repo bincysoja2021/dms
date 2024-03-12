@@ -15,8 +15,8 @@ class Notification extends Model
         'message',
         'added_by',
         'edited_by',
-        'active_status',
-        'msg_title',
+        'status',
+        'message_title',
         'user_id',
         'user_type'
     ];
