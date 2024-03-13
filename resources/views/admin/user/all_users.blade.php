@@ -50,31 +50,6 @@
   </div>
 </div>
 
-<!-- The Modal -->
-<div class="modal fade" id="userModal">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-    
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title text-danger">Are you Sure, you want to delete the user?</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      
-      <!-- Modal body -->
-      <div class="modal-body">
-        Once you delete the user, you will no longer be able to access the user data. Click "Yes" to proceed or else click "Cancel".
-      </div>
-      
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>
-        <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
-      </div>
-      
-    </div>
-  </div>
-</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
 <script type="text/javascript">
   @if(session()->has('message'))

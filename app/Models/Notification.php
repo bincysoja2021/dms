@@ -18,6 +18,7 @@ class Notification extends Model
         'status',
         'message_title',
         'user_id',
-        'user_type'
+        'user_type',
+        'doc_id'
     ];
 }

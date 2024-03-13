@@ -10,6 +10,7 @@ class Document extends Model
     use HasFactory,SoftDeletes;
     protected $table="documents";
     protected $fillable = [
+        'doc_id',
         'user_id',
         'date',
         'document_type',
@@ -20,6 +21,7 @@ class Document extends Model
         'company_name',
         'company_id',
         'filename',
-        'status'
+        'status',
+        'user_name'
     ];
 }

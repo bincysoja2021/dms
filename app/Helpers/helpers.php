@@ -68,7 +68,7 @@ if(!function_exists('send_otp_to_email'))
 
 if(!function_exists('notification_data'))
 {
-    function notification_data($id,$user_type,$date,$message,$message_title,$status_val)
+    function notification_data($id,$user_type,$date,$message,$message_title,$status_val,$doc_id)
     {
         try
         {
@@ -78,7 +78,8 @@ if(!function_exists('notification_data'))
                 'date'=>$date,
                 'message_title'=>$message_title,
                 'message'=>$message,
-                'status'=>$status_val
+                'status'=>$status_val,
+                'doc_id'=>$doc_id
             ]);
            
         }

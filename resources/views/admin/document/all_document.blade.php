@@ -5,7 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
 <title>All Docmuments :: DMS</title>
 @include("admin.include.header")
 
@@ -18,131 +26,141 @@
     <div class="dash-all">
       <div class="dash-table-all">
         <h4 class="sub-heading">Uploaded Documents</h4>
-        <div class="sort-block">
-          <div class="show-num">
-            <span>Show</span>
-            <select class="select">
-              <option>20</option>
-              <option>50</option>
-              <option>100</option>
-            </select>
-            <span>Entries</span>
-          </div> 
-          <a href="" class="btn btn-primary">Delete</a>
-          <div class="sort-by ml-auto">
-            <select class="select">
-              <option>Select</option>
-              <option>Sort by latest</option>
-              <option>Sort by oldest</option>
-            </select>
-          </div>
-        </div>
-        <table class="table table-striped">
+        
+        <table class="table table-striped doc-datatable">
           <thead>
-            <th><input type="checkbox" class="checkbox"></th>
-            <th>Sl.</th>
-            <th>Document ID</th>
-            <th>Uploaded Date</th>
-            <th>Tags</th>
-            <th>Thumbnail</th>
-            <th>Action</th>
+            <tr>
+              <th><input type="checkbox" id="select-all">&nbsp&nbsp&nbsp
+              <button class="btn btn-primary" id="delete-selected">Delete</button></th>
+              <th>Sl.</th>
+              <th>Document ID</th>
+              <th>Document Type</th>
+              <th>Uploaded Date</th>
+             <!--  <th>Tags</th>
+              <th>Thumbnail</th> -->
+              <th>Action</th>
+           </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><input type="checkbox" class="checkbox"></td>
-              <td>01.</td>
-              <td>SO-4512012</td>
-              <td>20-02-2024</td>
-              <td>IN-123456789, BN-123456789, SO-123456789, CN-Exacore</td>
-              <td>
-                <a href="images/thumbnail.png" data-fancybox="images" data-caption="My caption">
-                  <img src="images/thumbnail.png" alt="" />
-                </a>
-              </td>
-              <td>
-                <a href="{{url('view_file')}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                <a href="{{url('edit_file')}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                <a href="" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash" aria-hidden="true"></i>
-                </a>
-                <a href="#"><i class="fa fa-download" aria-hidden="true"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="checkbox"></td>
-              <td>02.</td>
-              <td>SO-4512012</td>
-              <td>20-02-2024</td>
-              <td>IN-123456789, BN-123456789, SO-123456789, CN-Exacore</td>
-              <td>
-                <a href="images/thumbnail.png" data-fancybox="images" data-caption="My caption">
-                  <img src="images/thumbnail.png" alt="" />
-                </a>
-              </td>
-              <td>
-                <a href="{{url('view_file')}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                <a href="{{url('edit_file')}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                <a href="" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-download" aria-hidden="true"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="checkbox"></td>
-              <td>03.</td>
-              <td>SO-4512012</td>
-              <td>20-02-2024</td>
-              <td>IN-123456789, BN-123456789, SO-123456789, CN-Exacore</td>
-              <td>
-                <a href="images/thumbnail.png" data-fancybox="images" data-caption="My caption">
-                  <img src="images/thumbnail.png" alt="" />
-                </a>
-              </td>
-              <td>
-                <a href="{{url('view_file')}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                <a href="{{url('edit_file')}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                <a href="" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-download" aria-hidden="true"></i></a>
-              </td>
-            </tr>
+            
           </tbody>
         </table>
-        <div class="pagination-block">
-          <ul class="pagination pagination-sm justify-content-end">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-          </ul>
-        </div>
+        
       </div>
     </div>
   </div>
 </div>
 
-<!-- The Modal -->
-<div class="modal fade" id="myModal">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-    
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title text-danger">Are you Sure, you want to delete the file?</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      
-      <!-- Modal body -->
-      <div class="modal-body">
-        Once you delete the file, you will no longer be able to access the file. Click "Yes" to proceed or else click "Cancel".
-      </div>
-      
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>
-        <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
-      </div>
-      
-    </div>
-  </div>
-</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script type="text/javascript">
+  @if(session()->has('message'))
+      swal({
 
+          title: "Success!",
+
+          text: "{{ session()->get('message') }}",
+
+          icon: "success",
+
+      });
+  @endif
+  </script>
+<script type="text/javascript">
+ $('#select-all').on('change', function() {
+        $('input[type="checkbox"]').prop('checked', $(this).prop('checked'));
+    });
+     
+  $(function () {
+    var table = $('.doc-datatable').DataTable
+    ({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('get_doc_list.list') }}",
+        columns: [
+            { data: 'checkbox', name: 'checkbox', orderable: false, searchable: false },
+            {data: 'id', name: 'id'},
+            {data: 'doc_id', name: 'doc_id'},
+            {data: 'document_type', name: 'document_type'},
+            {data: 'date', name: 'date'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+        ]
+    });
+  });
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+
+<script type="text/javascript">
+  function delete_doc_modal(id)
+  {
+    var id = id; 
+    swal({
+      title: 'Are you sure?',
+      text: "Are you sure you want to delete this document?",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger',
+      confirmButtonText: 'Yes, delete it!',
+      buttonsStyling: false
+    }).then((isConfirm) => {
+    if (isConfirm){
+       $.ajax({
+              type:'GET',
+              url:'{{url("/delete_docs")}}/' +id,
+              data:{
+                  "_token": "{{ csrf_token() }}",
+              },
+              success:function(data) {
+              swal({
+
+              title: "Success!",
+
+              text: "Document has been deleted!..",
+
+              icon: "success",
+
+              });
+              setTimeout(function()
+              {
+                window.location.href="{{url("all_document")}}";
+              }, 2000);
+              }
+           });
+    }
+    });
+  }
+  $('#delete-selected').on('click', function() {
+        var ids = $('input[name="item_checkbox[]"]:checked').map(function() {
+            return $(this).val();
+        }).get();
+
+        $.ajax({
+            url: '{{url("/delete_multi_docs")}}',
+            method: 'POST',
+            data: { 
+                    ids: ids,
+                    _token: "{{ csrf_token() }}",
+                  },
+            success: function(response) {
+              swal({
+
+              title: "Success!",
+
+              text: "Selected documents has been deleted!..",
+
+              icon: "success",
+
+              });
+             setTimeout(function()
+              {
+                window.location.href="{{url("all_document")}}";
+              }, 2000);
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
+</script>
 @include("admin.include.footer")

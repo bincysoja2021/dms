@@ -37,21 +37,37 @@ use Illuminate\Support\Facades\Route;
 ################################  All document details#########################################
 
     Route::get('/all_document', [App\Http\Controllers\Documentcontoller::class, 'all_document'])->name('all_document');
-    Route::get('/view_file', [App\Http\Controllers\Documentcontoller::class, 'view_file'])->name('view_file');
-    Route::get('/edit_file', [App\Http\Controllers\Documentcontoller::class, 'edit_file'])->name('edit_file');
+    Route::get('/get_doc_list', [App\Http\Controllers\Documentcontoller::class, 'getdoc'])->name('get_doc_list.list');
+    Route::get('/view_file/{id}', [App\Http\Controllers\Documentcontoller::class, 'view_file'])->name('view_file');
+    Route::get('/edit_file/{id}', [App\Http\Controllers\Documentcontoller::class, 'edit_file'])->name('edit_file');
+    Route::post('/document_update', [App\Http\Controllers\Documentcontoller::class, 'document_update'])->name('document_update');
+    Route::get('/delete_docs/{id}', [App\Http\Controllers\Documentcontoller::class, 'delete_docs'])->name('delete.docs');
+    Route::post('/delete_multi_docs', [App\Http\Controllers\Documentcontoller::class, 'delete_multi_docs'])->name('delete.delete_multi_docs');
+##########################################################################################
+################################  All invoice document details#########################################
+
     Route::get('/all_invoices', [App\Http\Controllers\Documentcontoller::class, 'all_invoices'])->name('all_invoices');
-    Route::get('/view_invoice', [App\Http\Controllers\Documentcontoller::class, 'view_invoice'])->name('view_invoice');
-    Route::get('/edit_invoice', [App\Http\Controllers\Documentcontoller::class, 'edit_invoice'])->name('edit_invoice');
+    Route::get('/get_allinvoice_list', [App\Http\Controllers\Documentcontoller::class, 'getallinvoice'])->name('get_allinvoice_list.list');
+    Route::get('/view_invoice/{id}', [App\Http\Controllers\Documentcontoller::class, 'view_invoice'])->name('view_invoice');
+    Route::get('/edit_invoice/{id}', [App\Http\Controllers\Documentcontoller::class, 'edit_invoice'])->name('edit_invoice');
+    Route::post('/invoice_document_update', [App\Http\Controllers\Documentcontoller::class, 'invoice_document_update'])->name('invoice_document_update');
+    Route::get('/delete_invoice/{id}', [App\Http\Controllers\Documentcontoller::class, 'delete_invoice'])->name('delete.invoice');
+    Route::post('/delete_multi_invoice', [App\Http\Controllers\Documentcontoller::class, 'delete_multi_invoice'])->name('delete.delete_multi_invoice');
 
     Route::post('/submit_docs', [App\Http\Controllers\Documentcontoller::class, 'submit'])->name('submit_docs');
+################################  All failed document details#########################################
+    
+    Route::get('/failed_document', [App\Http\Controllers\Documentcontoller::class, 'failed_document'])->name('failed_document');
     Route::post('/failed_docs', [App\Http\Controllers\Documentcontoller::class, 'failed_docs_submission'])->name('failed_docs');
+    Route::get('/get_failed_doc_list', [App\Http\Controllers\Documentcontoller::class, 'get_failed_doc_list'])->name('get_failed_doc_list.list');
+    Route::get('/delete_failed_docs/{id}', [App\Http\Controllers\Documentcontoller::class, 'delete_failed_docs'])->name('delete.faileddocs');
+    Route::post('/delete_multi_failed_docs', [App\Http\Controllers\Documentcontoller::class, 'delete_multi_failed_docs'])->name('delete.delete_multi_failed_docs');
 
 #############################################################################################
 
 ############################  Schedule document details####################################
     Route::get('/schedule_document', [App\Http\Controllers\Documentcontoller::class, 'schedule_document'])->name('schedule_document');
     Route::get('/upload_document', [App\Http\Controllers\Documentcontoller::class, 'upload_document'])->name('upload_document');
-    Route::get('/failed_document', [App\Http\Controllers\Documentcontoller::class, 'failed_document'])->name('failed_document');
 #################################################################################
 
 ####################################  Password reset###########################################
@@ -64,11 +80,10 @@ use Illuminate\Support\Facades\Route;
     Route::post('/reset_password_submit', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'reset_password_submit'])->name('reset_password_submit');
     Route::post('/manager_reset_password_submit', [App\Http\Controllers\Usercontoller::class, 'manager_reset_password_submit'])->name('manager_reset_password_submit');
     Route::get('/reset_user_password', [App\Http\Controllers\Usercontoller::class, 'reset_user_password'])->name('reset_user_password');
-     Route::get('/check-current-password',[App\Http\Controllers\Auth\ForgotPasswordController::class,'CheckCurrentPassword'])->name('check-current-password');
+    Route::get('/check-current-password',[App\Http\Controllers\Auth\ForgotPasswordController::class,'CheckCurrentPassword'])->name('check-current-password');
 
-
-     //captcha
-     Route::get('/reload-captcha',[App\Http\Controllers\Auth\ForgotPasswordController::class,'reloadCaptcha'])->name('reloadCaptcha');
+    //captcha
+    Route::get('/reload-captcha',[App\Http\Controllers\Auth\ForgotPasswordController::class,'reloadCaptcha'])->name('reloadCaptcha');
 
 
 ############################################################################################

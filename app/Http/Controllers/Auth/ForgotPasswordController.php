@@ -111,9 +111,7 @@ public function CheckCurrentPassword(Request $request)
       Cookie::queue(Cookie::forget('user_id'));
       // Session::flash('message', ['text'=>'Succssfully updated the password!....','type'=>'success']);
       return redirect('/')->with('message','Succssfully updated the password!');;
-    } 
-
-   
+    }   
 /**********************************
    Date        : 01/03/2024
    Description :  Forgot password

@@ -19,24 +19,24 @@
           <tr>
             <td width="200">Message Title</td>
             <td width="10">:</td>
-            <td>{{$msg->message_title}}</td>
+            <td>{{$msg->message}}</td>
           </tr>
           <tr>
             <td>Date and Time</td>
             <td>:</td>
-            <td>{{ \Carbon\Carbon::parse($msg->date)->format('d-m-Y') }}</td>
+            <td>{{ \Carbon\Carbon::parse($msg->created_at)->setTimezone("Asia/Kolkata")->format('d-m-Y H:i:s A') }}</td>
           </tr>
           <tr>
             <td>Status</td>
             <td>:</td>
             <td><span class="text-danger">{{$msg->status}}</span></td>
           </tr>
-          <tr>
+           <tr>
             <td>Message</td>
             <td>:</td>
             <td>
-              Uploading failed for 3 documents out of 25 documents scheduled.<br/>
-              Date uploaded : 20-02-2024<br/>
+              {{$msg->message_title}}<br/>
+              Date uploaded :  {{ \Carbon\Carbon::parse($msg->date)->format('d-m-Y') }}<br/>
               Documents scheduled : 25<br/>
               Documents successfull : 22<br/>
               Documents failed : 3<br/>

@@ -42,23 +42,23 @@ class Usercontoller extends Controller
 **********************************/    
     public function getusers(Request $request)
     {
-        if ($request->ajax()) {
-            $data = User::where('deleted_at',NULL)->latest()->get();
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function($row){
-                    $actionBtn = '<a href="' . route('view.users', $row->id) .'"><i class="fa fa-eye"  aria-hidden="true"></i></a>
-                                  <a href="' . route('edit.users', $row->id) .'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                  <a   onclick="delete_user_modal('.$row->id.')" ><i class="fa fa-trash" aria-hidden="true"></i></a>';
-                    return $actionBtn;
-                })
-                 ->addColumn('checkbox', function ($item) {
-                $actionBtn ='<input type="checkbox" name="item_checkbox[]" value="' . $item->id . '">';
-                return $actionBtn;
-                })
-                ->rawColumns(['checkbox','action'])
-                ->make(true);
-        }
+      if ($request->ajax()) {
+          $data = User::where('deleted_at',NULL)->latest()->get();
+          return Datatables::of($data)
+              ->addIndexColumn()
+              ->addColumn('action', function($row){
+                  $actionBtn = '<a href="' . route('view.users', $row->id) .'"><i class="fa fa-eye"  aria-hidden="true"></i></a>
+                                <a href="' . route('edit.users', $row->id) .'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                <a   onclick="delete_user_modal('.$row->id.')" ><i class="fa fa-trash" aria-hidden="true"></i></a>';
+                  return $actionBtn;
+              })
+               ->addColumn('checkbox', function ($item) {
+              $actionBtn ='<input type="checkbox" name="item_checkbox[]" value="' . $item->id . '">';
+              return $actionBtn;
+              })
+              ->rawColumns(['checkbox','action'])
+              ->make(true);
+      }
     }
 /**********************************
    Date        : 05/03/2024
@@ -93,7 +93,6 @@ class Usercontoller extends Controller
           'department_section'=>$req->department_section
         ]);
         return redirect()->route('all_users')->with('message','User updated Successfully!');
-
     }    
 /**********************************
    Date        :29/02/2024
@@ -233,7 +232,6 @@ class Usercontoller extends Controller
     {
         $msg=User::where('id',$id)->delete();
         return redirect()->route('all_users')->with('message','User deleted Successfully!');
-
     }    
 /***************************************
    Date        : 04/03/2024
@@ -244,7 +242,6 @@ class Usercontoller extends Controller
         $ids = $request->input('ids');
         User::whereIn('id', $ids)->delete();
         return response()->json(['success' => true]);
-   
     }  
 /*******************************************
    Date        : 07/03/2024
