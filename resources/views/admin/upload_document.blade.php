@@ -118,7 +118,8 @@ var company_id = document.getElementById("company_id").value;
 var name = document.getElementById("company_name").value;
 var image = document.getElementById("image").value;
 var allowedExtensions = /(\.pdf)$/i;
-
+// var file_data = $("#image")[0].files[0];   
+// console.log("image=>",file_data)
 
 if(!allowedExtensions.exec(image)){
 // alert('Please upload file having extensions .pdf only.');
