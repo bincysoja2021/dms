@@ -196,7 +196,7 @@ class Documentcontoller extends Controller
           'shipping_bill_number'=>'SB-'.$genearte_number,
           'company_name'=>$req->name,
           'company_id'=>$req->company_id,
-          'filename'=>$req->image,
+          'filename'=>Auth::user()->id.'/'.time().'/'.$req->image,
           'status'=>"Failed",
           'user_name'=>Auth::user()->user_name
         ]);
