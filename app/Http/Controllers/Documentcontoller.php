@@ -118,9 +118,10 @@ class Documentcontoller extends Controller
    
     }    
 
-    public function schedule_document()
+    public function schedule_document($id)
     {
-      return view('admin.schedule_document');
+      $document_id=Document::where('id', $id)->first();
+      return view('admin.schedule_document',compact('document_id'));
     }
     public function upload_document()
     {
@@ -151,7 +152,7 @@ class Documentcontoller extends Controller
       //upload pdf to public upload folder
       $path = $req->file('image')->store('manual_files_upload');
       $file = $req->file('image');
-      $fileName = $file->getClientOriginalName();
+      $fileName = Auth::user()->id.'/'.time().'/'.$file->getClientOriginalName();
       $file->move(public_path('uploads'), $fileName);
       $Document= Document::Create([
           'user_id'=>Auth::user()->id,

@@ -66,7 +66,7 @@ use Illuminate\Support\Facades\Route;
 #############################################################################################
 
 ############################  Schedule document details####################################
-    Route::get('/schedule_document', [App\Http\Controllers\Documentcontoller::class, 'schedule_document'])->name('schedule_document');
+    Route::get('/schedule_document/{id}', [App\Http\Controllers\Documentcontoller::class, 'schedule_document'])->name('schedule_document');
     Route::get('/upload_document', [App\Http\Controllers\Documentcontoller::class, 'upload_document'])->name('upload_document');
 #################################################################################
 

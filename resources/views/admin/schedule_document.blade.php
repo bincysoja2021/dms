@@ -23,60 +23,64 @@
           </p>
           <div class="input-group radio-cover">
             <span>
-              <input type="radio" class="radio" name="manual">
+              <input type="radio" class="radio" name="manual" value="manual" onclick="showmanual(1);">
               Manual Schedule
             </span>
             <span>
-              <input type="radio" class="radio" name="manual">
+              <input type="radio" class="radio" name="manual" value="pre_schedule" onclick="showmanual(2);">
               Pre-Schedule
             </span>            
           </div>
-          <table class="table detail-table">
-            <tr>
-              <td>Date</td>
-              <td><input type="text" name="date" class="form-control"></td>
-            </tr>
-            <tr>
-              <td>Time</td>
-              <td><input class="time standard" type="text" value="00:00" onchange="console.log('Time changed to: ' + this.value)" /></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-            </tr>
-          </table>
-          <a href="" class="btn btn-primary btn-lg">Start Schedule</a>
-          <hr>
-          <h5>Schedule for :</h5>
-          <div class="input-group radio-cover">
-            <span>
-              <input type="radio" class="radio" name="manual">
-              7 days
-            </span>
-            <span>
-              <input type="radio" class="radio" name="manual">
-              15 days
-            </span>
-            <span>
-              <input type="radio" class="radio" name="manual">
-              30 days
-            </span>            
-          </div>
-          <table class="table detail-table">
-            <tr>
-              <td>Start Date</td>
-              <td><input type="text" name="date" class="form-control"></td>
-            </tr>
-            <tr>
-              <td>Time</td>
-              <td><input class="time standard" type="text" value="00:00" onchange="console.log('Time changed to: ' + this.value)" /></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-            </tr>
-          </table>
-          <a href="" class="btn btn-primary btn-lg">Start Schedule</a>
+          <div id="div1" style="display:none;">
+            <table class="table detail-table">
+              <tr>
+                <td>Date</td>
+                <td><input type="text" name="date" class="form-control"></td>
+              </tr>
+              <tr>
+                <td>Time</td>
+                <td><input class="time standard" type="text" value="00:00" onchange="console.log('Time changed to: ' + this.value)" /></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+            <a href="" class="btn btn-primary btn-lg">Start Schedule</a>
+            <hr>
+        </div>
+        <div id="div2" style="display:none;">
+              <h5>Schedule for :</h5>
+              <div class="input-group radio-cover">
+                <span>
+                  <input type="radio" class="radio" name="manual">
+                  7 days
+                </span>
+                <span>
+                  <input type="radio" class="radio" name="manual">
+                  15 days
+                </span>
+                <span>
+                  <input type="radio" class="radio" name="manual">
+                  30 days
+                </span>            
+              </div>
+              <table class="table detail-table">
+                <tr>
+                  <td>Start Date</td>
+                  <td><input type="text" name="date" class="form-control"></td>
+                </tr>
+                <tr>
+                  <td>Time</td>
+                  <td><input class="time standard" type="text" value="00:00" onchange="console.log('Time changed to: ' + this.value)" /></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </table>
+              <a href="" class="btn btn-primary btn-lg">Start Schedule</a>
+        </div>
         </div>
         <div class="col-md-4">
           <h5>Steps to follow for schedule document upload</h5>
@@ -96,7 +100,20 @@
     </div>
   </div>
 </div>
-
-
+<script type="text/javascript">
+  function showmanual(val)
+  {
+    if(val==1)
+    {
+     document.getElementById('div1').style.display ='block';
+     document.getElementById('div2').style.display = 'none';
+    }
+    else if(val==2)
+    {
+      document.getElementById('div1').style.display ='none';
+      document.getElementById('div2').style.display = 'block';
+    }
+  }
+</script>
 
 @include("admin.include.footer")
