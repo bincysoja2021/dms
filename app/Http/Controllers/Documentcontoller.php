@@ -181,22 +181,22 @@ class Documentcontoller extends Controller
     {
       $genearte_number=random_int(100000, 999999);
       //upload pdf to public upload folder
-      // $path = $req->file('image')->store('manual_files_upload');
-      // $file = $req->file('image');
-      // $fileName = $file->getClientOriginalName();
-      // $file->move(public_path('uploads'), $fileName);
+      $path = $req->file('document_file')->store('manual_files_upload');
+      $file = $req->file('document_file');
+      $fileName = $file->getClientOriginalName();
+      $file->move(public_path('uploads'), $fileName);
       $Document=Document::Create([
           'user_id'=>Auth::user()->id,
           'date'=>date('d-m-y'),
-          'document_type'=>$req->type,
+          'document_type'=>$req->doc_type,
           'invoice_number'=>'IN-'.$genearte_number,
           'doc_id'=>'DOC-'.$genearte_number,
           'invoice_date'=>date('d-m-y'),
           'sales_order_number'=>'SO-'.$genearte_number,
           'shipping_bill_number'=>'SB-'.$genearte_number,
-          'company_name'=>$req->name,
+          'company_name'=>$req->company_name,
           'company_id'=>$req->company_id,
-          'filename'=>Auth::user()->id.'/'.time().'/'.$req->image,
+          'filename'=>$fileName,
           'status'=>"Failed",
           'user_name'=>Auth::user()->user_name
         ]);

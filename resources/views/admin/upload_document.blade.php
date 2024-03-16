@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <title>Upload Docmuments :: DMS</title>
 @include("admin.include.header")
@@ -59,7 +60,7 @@
             <tr>
               <td>Upload file<span style="color: red">*</span></td>
               <td>
-                  <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror" onchange="Checksize_image()">
+                  <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror"  onchange="Checksize_image()">
                     @error('image')
                       <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
@@ -111,125 +112,126 @@
   @endif
   </script>
 <script type="text/javascript">
-Checksize_image = () => {
-const fi = document.getElementById('image');
-var type = document.getElementById("doc_type").value;
-var company_id = document.getElementById("company_id").value;
-var name = document.getElementById("company_name").value;
-var image = document.getElementById("image").value;
-var allowedExtensions = /(\.pdf)$/i;
-// var file_data = $("#image")[0].files[0];   
-// console.log("image=>",file_data)
-
-if(!allowedExtensions.exec(image)){
-// alert('Please upload file having extensions .pdf only.');
-$("#upload_document").attr("disabled", true);
-var msg="Please upload file having extensions .pdf only.";
-$.ajax({
-      type: "POST",
-      headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') },
-      url: '/failed_docs',
-      data: { "_token": "{{ csrf_token() }}",
-        type: type,
-        company_id:company_id,
-        name:name,
-        image:image,
-        msg:msg,
-      },
-      success: function(newData) {
-        if(newData.success == 1){  
-          swal({
-            title: "Error!",
-            text: newData.message,
-            icon: "error",
-          });
-           setTimeout(function()
-            {
-              window.location.href="{{url("upload_document")}}";
-            }, 3000);
-          
-        } 
-      },
-              
-    });
-}
-// Check if any file is selected.
-if (fi.files.length > 0)
+Checksize_image = () =>
 {
-  for (const i = 0; i <= fi.files.length - 1; i++)
+  let formdata = new FormData();
+  var docType = document.getElementById("doc_type").value;
+  var companyId = document.getElementById("company_id").value;
+  var companyName = document.getElementById("company_name").value;
+  var image = document.getElementById("image").value;
+  const fileInput = document.getElementById('image');
+  const fileList = fileInput.files;
+  const file = fileList[0];
+  formdata.append("doc_type", docType);
+  formdata.append("company_id", companyId);
+  formdata.append("company_name", companyName);
+  formdata.append('document_file', file);
+  var allowedExtensions = /(\.pdf)$/i;
+  if(!allowedExtensions.exec(image))
   {
-    const fsize = fi.files.item(i).size;
-    const file = Math.round((fsize / 1024));
-    // compare size of the file.
-    if (file >= 4096) 
+    $("#upload_document").attr("disabled", true);
+    var msg="Please upload file having extensions .pdf only.";
+    formdata.append("msg", msg);
+    $.ajax({
+      url: '{{url("/failed_docs")}}',
+      method: 'POST',
+      headers:
+      {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      processData: false,
+      contentType: false,
+      data:formdata,
+    success: function(newData)
     {
-      var msg="File too Big, please select a file less than 4mb.";
-      // alert("File too Big, please select a file less than 4mb");
-      $("#upload_document").attr("disabled", true);
-      $.ajax({
-            type: "POST",
-            headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') },
-            url: '/failed_docs',
-            data: { "_token": "{{ csrf_token() }}",
-              type: type,
-              company_id:company_id,
-              name:name,
-              image:image,
-              msg:msg,
-            },
-            success: function(newData) {
-              if(newData.success == 1){  
-                swal({
-                  title: "Error!",
-                  text: newData.message,
-                  icon: "error",
-                });
-                 setTimeout(function()
-                {
-                  window.location.href="{{url("upload_document")}}";
-                }, 3000);
-              } 
-            },
-                    
-          });
+      if(newData.success == 1){  
+        swal({
+          title: "Error!",
+          text: newData.message,
+          icon: "error",
+        });
+       setTimeout(function()
+        {
+          window.location.href="{{url("upload_document")}}";
+        }, 3000);
+      } 
+    },
+    error: function(xhr, status, error){
+        console.error(error);
     }
-    else if (file < 10)
+    }); 
+  }
+  else
+  {
+    const fsize = file.size;
+    const filesize = Math.round((fsize / 1024));
+    var msg="";
+    if (filesize >= 4096)
     {
-      var msg="File too small, please select a file greater than 10kb.";
-      // alert("File too small, please select a file greater than 10kb");
-      $("#upload_document").attr("disabled", true);
-      $.ajax({
-            type: "POST",
-            headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') },
-            url: '/failed_docs',
-            data: { "_token": "{{ csrf_token() }}",
-              type: type,
-              company_id:company_id,
-              name:name,
-              image:image,
-              msg:msg,
-            },
-            success: function(newData) {
-              if(newData.success == 1){  
-                swal({
-                  title: "Error!",
-                  text: newData.message,
-                  icon: "error",
-                });
-                 setTimeout(function()
-                {
-                  window.location.href="{{url("upload_document")}}";
-                }, 3000);
-              } 
-            },
-                    
-          });
-    } 
-    // else {
-    //     alert("ok")
-    // }
+        $("#upload_document").attr("disabled", true);
+        msg="File too Big, please select a file less than 4mb.";
+        formdata.append("msg", msg);
+        $.ajax({
+          url: '{{url("/failed_docs")}}',
+          method: 'POST',
+          headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          processData: false,
+          contentType: false,
+          data: formdata,
+          success: function(newData) {
+            if(newData.success == 1){  
+              swal({
+                title: "Error!",
+                text: newData.message,
+                icon: "error",
+              });
+              setTimeout(function()
+              {
+                window.location.href="{{url("upload_document")}}";
+              }, 3000);
+            } 
+          },
+          error: function(xhr, status, error){
+              console.error(error);
+          }
+        }); 
+    }
+    else if(filesize < 10)
+    {
+        $("#upload_document").attr("disabled", true);
+        msg="File too small, please select a file greater than 10kb.";
+        formdata.append("msg", msg);
+        $.ajax({
+          url: '{{url("/failed_docs")}}',
+          method: 'POST',
+          headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          processData: false,
+          contentType: false,
+          data: formdata,
+          success: function(newData) {
+            if(newData.success == 1){  
+              swal({
+                title: "Error!",
+                text: newData.message,
+                icon: "error",
+              });
+              setTimeout(function()
+              {
+                window.location.href="{{url("upload_document")}}";
+              }, 3000);
+            } 
+          },
+          error: function(xhr, status, error){
+              console.error(error);
+          }
+        }); 
+    }
   }
 }
-}
+
 </script>
 @include("admin.include.footer")
