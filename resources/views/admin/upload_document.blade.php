@@ -166,10 +166,10 @@ Checksize_image = () =>
     const fsize = file.size;
     const filesize = Math.round((fsize / 1024));
     var msg="";
-    if (filesize >= 4096)
+    if (filesize >= 2048)
     {
         $("#upload_document").attr("disabled", true);
-        msg="File too Big, please select a file less than 4mb.";
+        msg="File too Big, please select a file less than 2mb.";
         formdata.append("msg", msg);
         $.ajax({
           url: '{{url("/failed_docs")}}',
@@ -198,7 +198,7 @@ Checksize_image = () =>
           }
         }); 
     }
-    else if(filesize < 10)
+    else if(filesize < 15)
     {
         $("#upload_document").attr("disabled", true);
         msg="File too small, please select a file greater than 10kb.";

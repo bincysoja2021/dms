@@ -141,12 +141,12 @@ class Documentcontoller extends Controller
           'doc_type'=>'required',
           'company_id'=>'required',
           'company_name'=>'required',
-          'image'=>'required|mimes:pdf|file|max:4000'
+          'image'=>'required|mimes:pdf|file|max:2048'
       ], [
           'doc_type.required' => 'Please enter the Document type.',
           'company_id.required' => 'Please enter the Company id.',
           'company_name.required' => 'Please enter the Company name.',
-          'image.required' => 'Please upload the file (format contain pdf,maximum size upto 4mb).',
+          'image.required' => 'Please upload the file (format contain pdf,maximum size upto 2mb).',
       ]);
       $genearte_number=random_int(100000, 999999);
       //upload pdf to public upload folder
