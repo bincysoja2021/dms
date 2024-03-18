@@ -7,6 +7,7 @@ use Auth;
 use App\Models\Document;
 use App\Models\Notification;
 use Yajra\DataTables\DataTables;
+use Storage;
 
 class Documentcontoller extends Controller
 {
@@ -216,18 +217,24 @@ class Documentcontoller extends Controller
           $data = Document::where('deleted_at',NULL)->latest()->get();
           return Datatables::of($data)
               ->addIndexColumn()
-              ->addColumn('action', function($row){
-                  $actionBtn = '<a href="' . route('view_file', $row->id) .'"><i class="fa fa-eye"  aria-hidden="true"></i></a>
-                                <a href="' . route('edit_file', $row->id) .'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                <a   onclick="delete_doc_modal('.$row->id.')" ><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                <a   onclick="delete_user_modal('.$row->id.')" ><i class="fa fa-download" aria-hidden="true"></i></a>';
-                  return $actionBtn;
+              ->addColumn('action', function($row)
+              {
+                $actionBtn = '<a href="' . route('view_file', $row->id) .'"><i class="fa fa-eye"  aria-hidden="true"></i></a>
+                              <a href="' . route('edit_file', $row->id) .'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                              <a   onclick="delete_doc_modal('.$row->id.')" ><i class="fa fa-trash" aria-hidden="true"></i></a>
+                              <a   onclick="delete_user_modal('.$row->id.')" ><i class="fa fa-download" aria-hidden="true"></i></a>';
+                return $actionBtn;
               })
-               ->addColumn('checkbox', function ($item) {
+              ->addColumn('checkbox', function ($item) {
               $actionBtn ='<input type="checkbox" name="item_checkbox[]" value="' . $item->id . '">';
               return $actionBtn;
               })
-              ->rawColumns(['checkbox','action'])
+              ->addColumn('filename', function ($row) {
+              $pdfPath = asset('uploads/' . $row->filename);
+              $actionBtn ="<embed src='$pdfPath' type='application/pdf' width='100px' height='100px' >";
+              return $actionBtn;
+              })
+              ->rawColumns(['filename','checkbox','action'])
               ->make(true);
         }
     }

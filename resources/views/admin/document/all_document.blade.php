@@ -30,15 +30,16 @@
         <table class="table table-striped doc-datatable">
           <thead>
             <tr>
-              <th><input type="checkbox" id="select-all">&nbsp&nbsp&nbsp
+              <th width="25%"><input type="checkbox" id="select-all">&nbsp&nbsp&nbsp
               <button class="btn btn-primary" id="delete-selected">Delete</button></th>
-              <th>Sl.</th>
-              <th>Document ID</th>
-              <th>Document Type</th>
-              <th>Uploaded Date</th>
+              <th width="10%">Sl.</th>
+              <th width="10%">Document ID</th>
+              <th width="10%">Document Type</th>
+              <th width="10%">Uploaded Date</th>
+              <th width="10%">Files</th>
              <!--  <th>Tags</th>
               <th>Thumbnail</th> -->
-              <th>Action</th>
+              <th width="25%">Action</th>
            </tr>
           </thead>
           <tbody>
@@ -82,6 +83,7 @@
             {data: 'doc_id', name: 'doc_id'},
             {data: 'document_type', name: 'document_type'},
             {data: 'date', name: 'date'},
+            {data: 'filename', name: 'filename', orderable: false, searchable: false},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
