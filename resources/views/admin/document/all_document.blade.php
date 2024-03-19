@@ -41,7 +41,7 @@
               <th width="10%">Document ID</th>
               <th width="10%">Document Type</th>
               <th width="10%">Uploaded Date</th>
-              <th width="10%">Files</th>
+              <th width="10%">Thumbnail</th>
              <!--  <th>Tags</th>
               <th>Thumbnail</th> -->
               <th width="25%">Action</th>
