@@ -14,6 +14,11 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 <script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
 <title>All Docmuments :: DMS</title>
 @include("admin.include.header")
 
@@ -27,10 +32,10 @@
       <div class="dash-table-all">
         <h4 class="sub-heading">Uploaded Documents</h4>
         
-        <table class="table table-striped doc-datatable">
+        <table class="table table-striped doc-datatable" id="doc-datatable">
           <thead>
             <tr>
-              <th width="25%"><input type="checkbox" id="select-all">&nbsp&nbsp&nbsp
+              <th width="20%"><input type="checkbox" id="select-all">&nbsp&nbsp&nbsp
               <button class="btn btn-primary" id="delete-selected">Delete</button></th>
               <th width="10%">Sl.</th>
               <th width="10%">Document ID</th>
@@ -52,6 +57,49 @@
   </div>
 </div>
 
+<!-- Image Modal -->
+<div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="imageModalLabel">File Viewer</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+        <embed src="" id="pdfPreview"  frameborder="0" width="100%" height="400px">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+// Handle click event on the file link
+$('document').ready(function() {
+  $('#doc-datatable').on('click', '.view_image', function(e)
+  {
+    e.preventDefault();
+    var imageUrl = $(this).data('image');
+    $('#pdfPreview').attr('src', imageUrl);
+    $('#pdfModal').modal('show');
+  });
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script type="text/javascript">
+  @if(session()->has('message'))
+      swal({
+
+          title: "Success!",
+
+          text: "{{ session()->get('message') }}",
+
+          icon: "success",
+
+      });
+  @endif
+  </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
 <script type="text/javascript">
   @if(session()->has('message'))

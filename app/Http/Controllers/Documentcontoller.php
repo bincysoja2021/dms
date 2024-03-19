@@ -231,7 +231,9 @@ class Documentcontoller extends Controller
               })
               ->addColumn('filename', function ($row) {
               $pdfPath = asset('uploads/' . $row->filename);
-              $actionBtn ="<embed src='$pdfPath' type='application/pdf' width='100px' height='100px' >";
+              $actionBtn ="<button class='view_image' data-toggle='modal' data-target='#pdfModal' data-image='$pdfPath'><embed src='$pdfPath' type='application/pdf' width='100px' height='100px' >
+              </button>
+              ";
               return $actionBtn;
               })
               ->rawColumns(['filename','checkbox','action'])
