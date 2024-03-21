@@ -8,6 +8,8 @@ use App\Models\Document;
 use App\Models\Notification;
 use Yajra\DataTables\DataTables;
 use Storage;
+use App\Jobs\ConvertPdfToThumbnail;
+
 
 class Documentcontoller extends Controller
 {
@@ -155,6 +157,41 @@ class Documentcontoller extends Controller
       $file = $req->file('image');
       $fileName = Auth::user()->id.'/'.time().'/'.$file->getClientOriginalName();
       $file->move(public_path('uploads'), $fileName);
+
+      // $pdf = $req->file('image');
+      // $pdfPath = $pdf->storeAs('pdfs', $pdf->getClientOriginalName());
+
+      // // Define thumbnail path
+      // $thumbnailPath = 'thumbnails/' . pathinfo($pdfPath, PATHINFO_FILENAME) . '.png';
+
+      // // Dispatch the job
+      // ConvertPdfToThumbnail::dispatch($pdfPath, $thumbnailPath);
+
+      // return response()->json(['message' => 'PDF uploaded and thumbnail conversion queued']);
+
+
+      $pdf = $req->file('image');
+
+      if ($pdf)
+      {
+        // Log the original file name
+        \Log::info('Original File Name: ' . $pdf->getClientOriginalName());
+        // Store the file and log the path
+        $pdfPath = public_path('uploads/'. $fileName);
+        \Log::info('Stored PDF Path: ' . $pdfPath);
+        $thumbnailPath = 'thumbnails/' . pathinfo($pdfPath, PATHINFO_FILENAME) . '.png';
+        // Dispatch the job with the PDF path
+        $chek=ConvertPdfToThumbnail::dispatch($pdfPath,$thumbnailPath);
+        $storedPath = store($thumbnailPath);
+    
+        // dd($chek);
+        return response()->json(['message' => 'PDF uploaded and thumbnail conversion queued']);
+      }
+       else
+      {
+        return response()->json(['error' => 'No PDF file uploaded'], 400);
+      }
+
       $Document= Document::Create([
           'user_id'=>Auth::user()->id,
           'date'=>date('d-m-y'),
