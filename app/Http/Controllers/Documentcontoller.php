@@ -182,7 +182,7 @@ class Documentcontoller extends Controller
         $thumbnailPath = 'thumbnails/' . pathinfo($pdfPath, PATHINFO_FILENAME) . '.png';
         // Dispatch the job with the PDF path
         $chek=ConvertPdfToThumbnail::dispatch($pdfPath,$thumbnailPath);
-        $storedPath = store($thumbnailPath);
+        // $storedPath = store($thumbnailPath);
     
         // dd($chek);
         return response()->json(['message' => 'PDF uploaded and thumbnail conversion queued']);
